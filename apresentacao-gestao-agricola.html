@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <title>Gestão Agrícola Cítrica — Planejamento do Projeto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@200;300;400;500;600;700&display=swap" />
+    <style>
+      :root {
+        --bg: #f7f6f2;
+        --surface: #ffffff;
+        --ink: #0a0a0a;
+        --ink-2: #1c1c1c;
+        --muted: #5f5f5a;
+        --muted-2: #9a988f;
+        --line: #e8e6e0;
+        --line-strong: #d4d2c9;
+        --radius: 12px;
+        --accent: #f58220;
+        --accent-ink: #a8520a;
+        --accent-soft: rgba(245,130,32,.10);
+        --teal: #008c7e;
+        --teal-ink: #006b60;
+        --teal-soft: rgba(0,140,126,.09);
+        --danger: #d9412b;
+        --shadow-hover: 0 12px 32px -12px rgba(10,10,10,.12), 0 2px 6px -2px rgba(10,10,10,.04);
+        --ease: cubic-bezier(.22,.61,.36,1);
+        --ease-out: cubic-bezier(.16,1,.3,1);
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        height: 100%;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: clamp(15px,1.15vw,19px);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        overflow: hidden;
+      }
+      h1,h2,h3,.counter,.speaker { font-family: "Outfit", system-ui, sans-serif; }
+      ::selection { background: var(--accent); color: #fff; }
+      :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 4px; }
+      a { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 1px; }
+
+      /* ---------- Chrome ---------- */
+      .deck { position: fixed; inset: 0; display: flex; flex-direction: column; }
+
+      .topbar {
+        position: relative; z-index: 10;
+        display: flex; align-items: center; justify-content: space-between; gap: 24px;
+        padding: clamp(18px,2.4vh,30px) clamp(28px,3.4vw,64px);
+        font-size: clamp(11px,.9vw,13px);
+        letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+      }
+      .brand { display: flex; align-items: center; gap: clamp(12px,1.2vw,18px); }
+      .brand img { height: clamp(18px,2.2vh,26px); width: auto; display: block; }
+      .brand-sep { width: 1px; height: 14px; background: var(--line-strong); }
+      .brand-txt { font-family: "Outfit",sans-serif; font-weight: 500; color: var(--ink); letter-spacing: .04em; }
+      .top-right { display: flex; align-items: center; gap: clamp(16px,2vw,28px); }
+      .speaker {
+        display: flex; align-items: center; gap: 10px;
+        font-weight: 500; color: var(--ink); letter-spacing: .06em;
+        transition: opacity 260ms var(--ease);
+      }
+      .speaker[hidden] { display: none; }
+      .speaker-dot {
+        width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+        box-shadow: 0 0 0 4px var(--accent-soft);
+      }
+      .speaker-topic { color: var(--muted); font-weight: 400; }
+      .counter { font-weight: 400; font-variant-numeric: tabular-nums; color: var(--ink); }
+      .counter .total { color: var(--muted-2); margin-left: 6px; }
+
+      .stage { flex: 1; position: relative; overflow: hidden; }
+
+      .slide {
+        position: absolute; inset: 0;
+        display: flex; align-items: center; justify-content: center;
+        padding: clamp(14px,2vh,26px) clamp(28px,3.4vw,64px) clamp(20px,2.8vh,36px);
+        opacity: 0; pointer-events: none;
+        transition: opacity 360ms var(--ease);
+      }
+      .slide.active { opacity: 1; pointer-events: auto; }
+
+      .slide-inner {
+        width: 100%; max-width: min(1280px,92vw);
+        transform: translateY(8px); opacity: 0;
+        transition: transform 520ms var(--ease) 80ms, opacity 420ms var(--ease) 80ms;
+      }
+      .slide.active .slide-inner { transform: translateY(0); opacity: 1; }
+
+      /* ---------- Bottombar ---------- */
+      .bottombar {
+        position: relative; z-index: 10;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: clamp(12px,1.6vh,20px) clamp(28px,3.4vw,64px) clamp(16px,2.2vh,28px);
+        gap: clamp(16px,2vw,28px);
+      }
+      .progress { flex: 1; height: 1px; background: var(--line); position: relative; overflow: hidden; }
+      .progress-fill {
+        position: absolute; inset: 0; background: var(--ink);
+        transform-origin: left; transform: scaleX(0);
+        transition: transform 480ms var(--ease);
+      }
+      .nav-group { display: flex; gap: 8px; }
+      .nav-btn, .act-btn {
+        appearance: none; background: transparent;
+        border: 1px solid var(--line); color: var(--ink);
+        font-family: "Outfit",sans-serif; font-size: clamp(10px,.78vw,13px);
+        font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+        padding: clamp(10px,1.3vh,14px) clamp(16px,1.4vw,24px);
+        border-radius: var(--radius); cursor: pointer;
+        transition: background 220ms var(--ease), border-color 220ms var(--ease),
+          color 220ms var(--ease), transform 220ms var(--ease);
+      }
+      .nav-btn { min-width: clamp(96px,8.5vw,134px); }
+      .nav-btn:hover, .act-btn:hover:not(:disabled) { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+      .nav-btn:active, .act-btn:active:not(:disabled) { transform: scale(.98); }
+      .nav-btn:disabled, .act-btn:disabled { opacity: .35; cursor: not-allowed; }
+      .nav-btn:disabled:hover { background: transparent; color: var(--ink); border-color: var(--line); }
+      .act-btn.primary { border-color: var(--accent); color: var(--accent-ink); }
+      .act-btn.primary:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: var(--ink); }
+      .nav-hint { font-size: clamp(10px,.78vw,13px); letter-spacing: .1em; text-transform: uppercase; color: var(--muted-2); font-family: "Outfit",sans-serif; }
+
+      /* ---------- Typography ---------- */
+      .display-xl {
+        font-family: "Outfit",sans-serif; font-weight: 200;
+        font-size: clamp(56px,min(8.4vw,14vh),136px);
+        line-height: .95; letter-spacing: -.04em; color: var(--ink);
+      }
+      .display-md {
+        font-family: "Outfit",sans-serif; font-weight: 400;
+        font-size: clamp(28px,min(4.2vw,7vh),68px);
+        line-height: 1.1; letter-spacing: -.02em; color: var(--ink);
+        text-wrap: balance;
+      }
+      .title-section {
+        font-family: "Outfit",sans-serif; font-weight: 400;
+        font-size: clamp(22px,min(2.8vw,4.5vh),42px);
+        line-height: 1.2; letter-spacing: -.015em; color: var(--ink);
+        text-wrap: balance;
+      }
+      .lead {
+        font-family: "Inter",sans-serif; font-weight: 400;
+        font-size: clamp(15px,min(1.45vw,2.4vh),24px);
+        line-height: 1.55; color: var(--ink-2); max-width: 62ch;
+      }
+      .body {
+        font-family: "Inter",sans-serif; font-weight: 400;
+        font-size: clamp(13px,min(1.05vw,1.8vh),18px);
+        line-height: 1.55; color: var(--muted);
+      }
+      .subtle { font-size: clamp(12px,min(.95vw,1.5vh),15px); color: var(--muted); }
+      .label {
+        font-family: "Outfit",sans-serif; font-size: clamp(10px,min(.85vw,1.4vh),14px);
+        font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+      }
+      .hl { color: var(--accent-ink); font-weight: 500; }
+
+      /* ---------- Cover ---------- */
+      .l-cover { display: flex; flex-direction: column; gap: clamp(16px,2.6vh,30px); }
+      .cover-logo { height: clamp(40px,6.4vh,72px); width: auto; align-self: flex-start; }
+      .cover-hero { display: flex; flex-direction: column; gap: 0; }
+      .cover-accent {
+        width: clamp(60px,9vw,130px); height: 4px; border-radius: 2px;
+        background: linear-gradient(90deg,var(--accent) 0%,var(--teal) 70%,transparent 100%);
+        margin-top: clamp(10px,1.6vh,18px);
+      }
+      .cover-sub {
+        font-family: "Outfit",sans-serif; font-weight: 300;
+        font-size: clamp(17px,2.1vw,29px);
+        color: var(--muted); line-height: 1.4; letter-spacing: .01em; max-width: 40ch;
+      }
+      .cover-sub strong { font-weight: 500; color: var(--ink); }
+      .l-cover .meta {
+        display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: clamp(16px,2vw,32px);
+        margin-top: clamp(12px,2.4vh,40px);
+        padding-top: clamp(14px,2vh,24px);
+        border-top: 1px solid var(--line);
+      }
+      .meta-item { display: flex; flex-direction: column; gap: 4px; }
+      .meta-value { font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(14px,min(1.2vw,2vh),20px); color: var(--ink); line-height: 1.3; }
+      .meta-value.names { font-weight: 400; }
+
+      /* ---------- Layouts ---------- */
+      .l-statement { display: flex; flex-direction: column; gap: clamp(14px,2.2vh,26px); }
+      .l-split {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: clamp(28px,4.5vw,68px); align-items: center; width: 100%;
+      }
+      .l-split.wide-right { grid-template-columns: .9fr 1.1fr; }
+      .split-content { display: flex; flex-direction: column; gap: clamp(11px,1.7vh,18px); }
+      .l-compare { display: flex; flex-direction: column; gap: clamp(16px,2.6vh,34px); width: 100%; }
+      .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px,1.2vw,20px); }
+
+      .compare-card {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: clamp(18px,2.4vh,32px) clamp(16px,1.6vw,26px);
+        display: flex; flex-direction: column; gap: clamp(10px,1.4vh,16px);
+      }
+      .compare-card.dark { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+      .compare-card.dark .label { color: rgba(247,246,242,.6); }
+      .compare-value {
+        font-family: "Outfit",sans-serif; font-weight: 300;
+        font-size: clamp(18px,min(2.2vw,3.6vh),36px);
+        line-height: 1.15; letter-spacing: -.018em;
+      }
+
+      /* Bullet list */
+      .bullet-list { list-style: none; display: flex; flex-direction: column; gap: clamp(6px,1vh,11px); }
+      .bullet-list li {
+        font-family: "Inter",sans-serif; font-size: clamp(13px,min(1.05vw,1.75vh),17px);
+        color: var(--ink-2); padding-left: 18px; position: relative; line-height: 1.45;
+      }
+      .bullet-list li::before {
+        content: ""; position: absolute; left: 0; top: .72em;
+        width: 6px; height: 1px; background: var(--ink); opacity: .4;
+      }
+      .bullet-list li strong { font-weight: 600; color: var(--ink); }
+      .compare-card.dark .bullet-list li { color: rgba(247,246,242,.82); }
+      .compare-card.dark .bullet-list li::before { background: var(--bg); opacity: .5; }
+      .compare-card.dark .bullet-list li strong { color: var(--bg); }
+
+      /* Members */
+      .l-members { display: flex; flex-direction: column; gap: clamp(16px,2.6vh,32px); }
+      .members-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px,1.2vw,20px); }
+      .member-card {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: clamp(22px,3vh,36px) clamp(20px,1.8vw,30px);
+        display: flex; flex-direction: column; gap: clamp(8px,1.2vh,14px);
+        transition: transform 280ms var(--ease), border-color 280ms var(--ease), box-shadow 280ms var(--ease);
+      }
+      .member-card:hover { transform: translateY(-3px); border-color: var(--line-strong); box-shadow: var(--shadow-hover); }
+      .member-name { font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(20px,min(2vw,3.4vh),32px); color: var(--ink); }
+      .member-part { font-family: "Outfit",sans-serif; font-size: clamp(11px,.85vw,13px); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-ink); }
+      .member-topics { font-family: "Inter",sans-serif; font-size: clamp(12px,min(.98vw,1.6vh),16px); color: var(--muted); line-height: 1.65; }
+
+      /* Transition */
+      .l-transition { display: flex; flex-direction: column; gap: clamp(14px,2.2vh,26px); }
+      .t-part { font-family: "Outfit",sans-serif; font-size: clamp(12px,min(1vw,1.7vh),16px); font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+      .t-name {
+        font-family: "Outfit",sans-serif; font-weight: 200;
+        font-size: clamp(54px,min(8vw,13.5vh),138px);
+        line-height: .95; letter-spacing: -.04em; color: var(--ink);
+      }
+      .t-accent {
+        width: clamp(40px,6vw,88px); height: 3px; border-radius: 2px; margin-top: 12px;
+        background: linear-gradient(90deg,var(--accent) 0%,var(--teal) 70%,transparent 100%);
+      }
+      .t-topics {
+        font-family: "Inter",sans-serif; font-size: clamp(13px,min(1.1vw,1.75vh),17px);
+        color: var(--muted); line-height: 1.65; max-width: 52ch;
+      }
+
+      /* Problem slide */
+      .pain-row {
+        display: grid; grid-template-columns: repeat(4,1fr);
+        border-top: 1px solid var(--line-strong); margin-top: clamp(6px,1vh,14px);
+      }
+      .pain {
+        padding: clamp(14px,2vh,22px) clamp(14px,1.4vw,22px) 0 0;
+        display: flex; flex-direction: column; gap: 6px;
+      }
+      .pain + .pain { padding-left: clamp(14px,1.4vw,22px); border-left: 1px solid var(--line); }
+      .pain-title { font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(15px,min(1.3vw,2.2vh),21px); color: var(--ink); }
+      .pain-txt { font-size: clamp(12px,min(.95vw,1.6vh),15px); color: var(--muted); line-height: 1.5; }
+
+      /* Objectives */
+      .goal-list { list-style: none; counter-reset: g; display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(24px,3vw,48px); }
+      .goal-list li {
+        counter-increment: g; display: grid; grid-template-columns: clamp(28px,2.4vw,40px) 1fr; align-items: baseline;
+        padding: clamp(10px,1.5vh,16px) 0; border-bottom: 1px solid var(--line);
+        font-size: clamp(13px,min(1.05vw,1.75vh),17px); color: var(--ink-2); line-height: 1.45;
+      }
+      .goal-list li::before {
+        content: counter(g, decimal-leading-zero);
+        font-family: "Outfit",sans-serif; font-weight: 500; font-size: .82em;
+        color: var(--accent-ink); font-variant-numeric: tabular-nums;
+      }
+      .goal-list li strong { color: var(--ink); font-weight: 600; }
+      .purpose {
+        display: grid; grid-template-columns: auto 1fr; gap: clamp(16px,2vw,32px); align-items: baseline;
+        padding: clamp(16px,2.2vh,26px) clamp(18px,1.8vw,28px);
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      }
+      .purpose .compare-value { font-size: clamp(17px,min(1.8vw,3vh),28px); }
+
+      /* Features table */
+      .feat { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(24px,3vw,48px); }
+      .feat-item {
+        display: grid; grid-template-columns: clamp(34px,2.8vw,44px) 1fr; gap: 14px; align-items: start;
+        padding: clamp(12px,1.8vh,20px) 0; border-bottom: 1px solid var(--line);
+      }
+      .feat-ico {
+        width: clamp(34px,2.8vw,44px); height: clamp(34px,2.8vw,44px); border-radius: 10px;
+        display: grid; place-items: center; background: var(--teal-soft); color: var(--teal-ink);
+      }
+      .feat-ico svg { width: 56%; height: 56%; }
+      .feat-name { font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(15px,min(1.3vw,2.2vh),21px); color: var(--ink); line-height: 1.25; }
+      .feat-txt { font-size: clamp(12px,min(.95vw,1.6vh),15px); color: var(--muted); line-height: 1.45; margin-top: 2px; }
+
+      /* Architecture */
+      .arch svg { width: 100%; height: auto; max-height: 52vh; display: block; }
+      .profiles { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line); }
+      .profile { display: grid; grid-template-columns: 11ch 1fr; gap: 16px; padding: clamp(10px,1.4vh,14px) 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+      .profile-name { font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(14px,min(1.15vw,1.9vh),18px); color: var(--ink); }
+      .profile-txt { font-size: clamp(12px,min(.95vw,1.6vh),15px); color: var(--muted); line-height: 1.45; }
+      .stack-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+      .tag {
+        font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(11px,.85vw,13px);
+        padding: 4px 10px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); color: var(--ink-2);
+      }
+
+      /* Planning facts */
+      .facts { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
+      .fact { padding: clamp(14px,2vh,22px) clamp(12px,1.2vw,20px) clamp(14px,2vh,22px) 0; }
+      .fact + .fact { padding-left: clamp(12px,1.2vw,20px); border-left: 1px solid var(--line); }
+      .fact-v { font-family: "Outfit",sans-serif; font-weight: 300; font-size: clamp(30px,min(3.4vw,5.6vh),56px); line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+      .fact-l { font-size: clamp(12px,min(.95vw,1.6vh),15px); color: var(--muted); margin-top: 6px; }
+      .cols-demo { display: flex; flex-wrap: wrap; gap: 6px; }
+      .col-chip { font-family: "Outfit",sans-serif; font-size: clamp(11px,.85vw,13px); font-weight: 500; padding: 5px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); }
+      .col-chip.key { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+
+      /* Gantt */
+      .l-gantt { display: flex; flex-direction: column; gap: clamp(14px,2.2vh,24px); width: 100%; }
+      .gantt { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(14px,2vh,22px) clamp(16px,1.6vw,26px); }
+      .g-head, .g-row { display: grid; grid-template-columns: clamp(150px,15vw,230px) 1fr clamp(96px,8.6vw,130px); gap: clamp(12px,1.2vw,20px); align-items: center; }
+      .g-head { padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+      .g-months { position: relative; height: 18px; }
+      .g-month { position: absolute; top: 0; font-family: "Outfit",sans-serif; font-size: clamp(10px,.8vw,12px); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--muted-2); transform: translateX(4px); }
+      .g-row { padding: clamp(7px,1.15vh,12px) 0; border-bottom: 1px solid var(--line); }
+      .g-row:last-child { border-bottom: none; }
+      .g-name { font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(13px,min(1.08vw,1.8vh),17px); color: var(--ink); line-height: 1.2; }
+      .g-name small { display: block; font-family: "Inter",sans-serif; font-weight: 400; font-size: .78em; color: var(--muted); margin-top: 2px; }
+      .g-track { position: relative; height: clamp(18px,2.6vh,26px); }
+      .g-grid { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--line); }
+      .g-bar {
+        position: absolute; top: 0; bottom: 0; border-radius: 6px; background: var(--ink-2);
+        transform-origin: left center; transform: scaleX(0);
+        transition: transform 900ms var(--ease-out);
+      }
+      .g-bar.impl { background: var(--teal); }
+      .g-crit {
+        position: absolute; top: -5px; bottom: -5px; border-radius: 4px;
+        border: 1.5px solid var(--accent); background: rgba(245,130,32,.22);
+        opacity: 0; transition: opacity 400ms var(--ease) 1100ms;
+      }
+      .slide.active .g-crit { opacity: 1; }
+      .g-dates { font-family: "Outfit",sans-serif; font-size: clamp(12px,min(.95vw,1.6vh),15px); color: var(--ink-2); font-variant-numeric: tabular-nums; text-align: right; line-height: 1.25; }
+      .g-dates small { display: block; color: var(--muted-2); font-size: .85em; }
+      .g-legend { display: flex; flex-wrap: wrap; gap: clamp(14px,1.6vw,26px); align-items: center; }
+      .g-key { display: inline-flex; align-items: center; gap: 8px; font-size: clamp(12px,min(.92vw,1.5vh),14px); color: var(--muted); }
+      .g-swatch { width: 18px; height: 8px; border-radius: 3px; background: var(--ink-2); }
+      .g-swatch.impl { background: var(--teal); }
+      .g-swatch.crit { background: rgba(245,130,32,.22); border: 1.5px solid var(--accent); height: 12px; }
+
+      /* Live link */
+      .link-panel {
+        background: var(--ink); color: var(--bg); border-radius: var(--radius);
+        padding: clamp(24px,3.6vh,44px) clamp(22px,2.4vw,40px);
+        display: flex; flex-direction: column; gap: clamp(14px,2vh,22px);
+      }
+      .link-panel .label { color: rgba(247,246,242,.6); }
+      .link-url { font-family: "Outfit",sans-serif; font-weight: 300; font-size: clamp(16px,min(1.6vw,2.7vh),26px); line-height: 1.3; overflow-wrap: anywhere; color: var(--bg); }
+      .open-btn {
+        align-self: flex-start; display: inline-flex; align-items: center; gap: 12px;
+        font-family: "Outfit",sans-serif; font-size: clamp(12px,.95vw,15px); font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+        color: var(--ink); background: var(--accent); text-decoration: none;
+        padding: clamp(12px,1.6vh,16px) clamp(18px,1.6vw,26px); border-radius: var(--radius);
+        transition: background 220ms var(--ease), transform 220ms var(--ease);
+      }
+      .open-btn:hover { background: #ff9a45; }
+      .open-btn:active { transform: scale(.98); }
+      .open-btn svg { width: 16px; height: 16px; }
+      .views { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .view {
+        border: 1px solid rgba(247,246,242,.16); border-radius: 10px; padding: 12px 14px;
+      }
+      .view-name { font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(14px,min(1.1vw,1.8vh),17px); }
+      .view-txt { font-size: clamp(12px,min(.9vw,1.5vh),14px); color: rgba(247,246,242,.7); line-height: 1.45; margin-top: 3px; }
+      .steps { list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line); }
+      .steps li { counter-increment: s; display: grid; grid-template-columns: 30px 1fr; padding: clamp(10px,1.5vh,15px) 0; border-bottom: 1px solid var(--line); font-size: clamp(13px,min(1.05vw,1.75vh),17px); color: var(--ink-2); line-height: 1.45; }
+      .steps li::before { content: counter(s); font-family: "Outfit",sans-serif; font-weight: 500; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+
+      /* Analysis table */
+      .l-table { display: flex; flex-direction: column; gap: clamp(12px,1.8vh,22px); width: 100%; }
+      .table-wrap { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
+      .data-table { width: 100%; border-collapse: collapse; }
+      .data-table thead th {
+        background: var(--ink); color: var(--bg);
+        padding: 10px 16px; text-align: left;
+        font-family: "Outfit",sans-serif; font-size: clamp(10px,min(.82vw,1.35vh),13px);
+        font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      }
+      .data-table td {
+        font-family: "Inter",sans-serif; font-size: clamp(12px,min(.98vw,1.62vh),16px);
+        color: var(--ink-2); padding: clamp(9px,1.35vh,13px) 16px; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.45;
+      }
+      .data-table td:first-child { font-family: "Outfit",sans-serif; font-weight: 500; color: var(--ink); font-size: clamp(13px,min(1.04vw,1.72vh),16px); white-space: nowrap; }
+      .data-table td.ans { font-family: "Outfit",sans-serif; font-weight: 500; color: var(--ink); }
+      .data-table tr:last-child td { border-bottom: none; }
+      .data-table tbody tr:nth-child(even) td { background: rgba(10,10,10,.018); }
+      .pill { display: inline-block; border-radius: 4px; padding: 2px 8px; font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(10px,.8vw,12px); white-space: nowrap; }
+      .pill.ok { background: #dcf3ee; color: var(--teal-ink); }
+      .pill.warn { background: #fdebd9; color: var(--accent-ink); }
+      .pill.bad { background: #fde3df; color: #9b2c1c; }
+
+      /* Delay simulation */
+      .l-sim { display: flex; flex-direction: column; gap: clamp(12px,2vh,20px); width: 100%; }
+      .sim-scene { display: flex; gap: clamp(16px,2.4vw,36px); align-items: flex-start; }
+      .sim-chart { flex: 1; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(12px,1.8vh,20px) clamp(14px,1.4vw,22px); }
+      .s-head, .s-row { display: grid; grid-template-columns: clamp(160px,15vw,230px) 1fr; gap: clamp(10px,1vw,16px); align-items: center; }
+      .s-head { padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+      .s-row { padding: clamp(5px,.85vh,9px) 0; border-bottom: 1px solid var(--line); }
+      .s-row:last-child { border-bottom: none; }
+      .s-name { font-size: clamp(11px,min(.9vw,1.5vh),14px); color: var(--ink-2); line-height: 1.25; }
+      .s-row.root .s-name { font-weight: 600; color: var(--ink); }
+      .s-track { position: relative; height: clamp(14px,2.1vh,20px); }
+      .s-bar {
+        position: absolute; top: 0; bottom: 0; border-radius: 5px; background: var(--ink-2);
+        transition: left 900ms var(--ease-out), width 900ms var(--ease-out), background 400ms var(--ease);
+      }
+      .s-row.root .s-bar { background: var(--teal); }
+      .s-ext {
+        position: absolute; top: 0; bottom: 0; border-radius: 0 5px 5px 0; width: 0;
+        background: repeating-linear-gradient(135deg, var(--danger) 0 5px, #e8604b 5px 10px);
+        transition: width 700ms var(--ease-out);
+      }
+      .s-ghost { position: absolute; top: 0; bottom: 0; border-radius: 5px; border: 1px dashed var(--line-strong); opacity: 0; transition: opacity 400ms var(--ease); }
+      .sim-on .s-ghost { opacity: 1; }
+      .s-shift {
+        position: absolute; top: 50%; transform: translateY(-50%); margin-left: 8px;
+        font-family: "Outfit",sans-serif; font-size: clamp(10px,.78vw,12px); font-weight: 600; white-space: nowrap;
+        opacity: 0; transition: opacity 400ms var(--ease) 700ms;
+      }
+      .sim-on .s-shift { opacity: 1; }
+      .s-shift.late { color: #9b2c1c; }
+      .s-shift.same { color: var(--teal-ink); }
+      .sim-panel { width: clamp(200px,19vw,280px); display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+      .sim-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+      .sim-card-lbl { font-family: "Outfit",sans-serif; font-size: clamp(9px,.72vw,11px); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 3px; }
+      .sim-card-txt { font-size: clamp(12px,.92vw,14px); color: var(--ink-2); line-height: 1.4; }
+      .sim-result {
+        border-radius: 10px; padding: 12px 14px;
+        background: #dcf3ee; border: 1px solid #9ed8cc; color: var(--teal-ink);
+        opacity: 0; transform: translateY(8px); transition: opacity 400ms var(--ease) 900ms, transform 400ms var(--ease) 900ms;
+      }
+      .sim-on .sim-result { opacity: 1; transform: none; }
+      .sim-result .sim-card-lbl { color: var(--teal-ink); opacity: .8; }
+      .sim-result .sim-card-txt { color: #064e46; font-weight: 500; }
+      .sim-controls { display: flex; gap: 8px; }
+      .sim-controls .act-btn { flex: 1; white-space: nowrap; padding-left: 12px; padding-right: 12px; }
+
+      /* Closing */
+      .has-dotgrid { background-image: radial-gradient(circle,rgba(10,10,10,.09) 1.5px,transparent 1.5px); background-size: 30px 30px; }
+
+      /* Responsive */
+      @media (max-width:860px) {
+        .l-split, .l-split.wide-right, .grid-2, .members-grid, .goal-list, .feat, .views { grid-template-columns: 1fr; }
+        .pain-row, .facts { grid-template-columns: 1fr 1fr; }
+        .l-cover .meta { grid-template-columns: 1fr; }
+        .sim-scene { flex-direction: column; }
+        .sim-panel { width: 100%; }
+        .speaker-topic, .brand-sep, .brand-txt { display: none; }
+        .g-head, .g-row { grid-template-columns: 110px 1fr; }
+        .g-dates { display: none; }
+      }
+      @media (max-width:720px) {
+        html, body { overflow: auto; }
+        .deck { position: static; min-height: 100%; }
+        .stage { overflow: visible; min-height: 70vh; }
+        .topbar,.bottombar { padding-left: 16px; padding-right: 16px; }
+        .slide { padding: 14px 16px 28px; }
+        .slide.active { position: relative; }
+        .nav-hint { display: none; }
+        .nav-btn { min-width: 88px; padding: 10px 14px; }
+      }
+      @media (prefers-reduced-motion:reduce) {
+        * { transition-duration:.01ms !important; animation-duration:.01ms !important; transition-delay: 0ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="deck" id="deck">
+      <header class="topbar">
+        <div class="brand">
+          <img src="imagens/logo-unifef.png" alt="UNIFEF — Centro Universitário de Fernandópolis" />
+          <span class="brand-sep" aria-hidden="true"></span>
+          <span class="brand-txt">Gestão Agrícola Cítrica</span>
+        </div>
+        <div class="top-right">
+          <span class="speaker" id="speaker" hidden>
+            <span class="speaker-dot" aria-hidden="true"></span>
+            <span id="speaker-name"></span>
+            <span class="speaker-topic" id="speaker-topic"></span>
+          </span>
+          <span class="counter">
+            <span id="current">01</span>
+            <span class="total" id="total">/ 15</span>
+          </span>
+        </div>
+      </header>
+
+      <section class="stage" id="stage">
+
+        <!-- 01 Capa -->
+        <article class="slide active has-dotgrid" data-slide="1">
+          <div class="slide-inner l-cover">
+            <img class="cover-logo" src="imagens/logo-unifef.png" alt="UNIFEF — Centro Universitário de Fernandópolis" />
+            <div class="cover-hero">
+              <h1 class="display-xl">Sistema de<br>Gestão Agrícola</h1>
+              <div class="cover-accent"></div>
+            </div>
+            <p class="cover-sub">para <strong>Pequenos e Médios Produtores</strong> de <strong>Frutas Cítricas</strong></p>
+            <div class="meta">
+              <div class="meta-item">
+                <span class="label">Instituição</span>
+                <span class="meta-value">Centro Universitário de Fernandópolis — UNIFEF</span>
+                <span class="subtle">Fundação Educacional de Fernandópolis</span>
+              </div>
+              <div class="meta-item">
+                <span class="label">Integrantes</span>
+                <span class="meta-value names">Lucas Mendes<br>Rhiady Vieira</span>
+              </div>
+              <div class="meta-item">
+                <span class="label">Disciplina</span>
+                <span class="meta-value names">Engenharia de Software e Gerência de Projetos</span>
+                <span class="subtle">Prof. Marcelo Tadeu Boer · 6º semestre · 2026</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 02 Integrantes -->
+        <article class="slide" data-slide="2">
+          <div class="slide-inner l-members">
+            <h2 class="title-section">Quem apresenta cada parte</h2>
+            <div class="members-grid">
+              <div class="member-card">
+                <span class="member-part">Parte 1 · O projeto</span>
+                <div class="member-name">Lucas Mendes</div>
+                <div class="member-topics">O problema · Finalidade e objetivos · Funcionalidades · Usuários e arquitetura</div>
+              </div>
+              <div class="member-card">
+                <span class="member-part">Parte 2 · O planejamento</span>
+                <div class="member-name">Rhiady Vieira</div>
+                <div class="member-topics">Como planejamos · Cronograma · Quadro no Monday.com · Análise · Simulação de atraso · Aprendizados</div>
+              </div>
+            </div>
+            <p class="body">Projeto desenvolvido em dupla na última atividade da AV1, com o cronograma gerenciado no Monday.com.</p>
+          </div>
+        </article>
+
+        <!-- T1 Transição Lucas -->
+        <article class="slide" data-slide="t1">
+          <div class="slide-inner l-transition">
+            <span class="t-part">Parte 1 · O projeto</span>
+            <div>
+              <div class="t-name">Lucas<br>Mendes</div>
+              <div class="t-accent"></div>
+            </div>
+            <p class="t-topics">O problema · Finalidade e objetivos · Funcionalidades · Usuários e arquitetura</p>
+          </div>
+        </article>
+
+        <!-- 03 O problema -->
+        <article class="slide" data-slide="3" data-speaker="Lucas Mendes" data-topic="O problema">
+          <div class="slide-inner l-statement">
+            <h2 class="display-md">A gestão do pomar ainda vive no caderno e na planilha.</h2>
+            <p class="lead">Pequenos e médios citricultores precisam acompanhar talhões, aplicações de defensivos, estoque de insumos, colheitas e custos — normalmente em anotações soltas, sem visão do todo.</p>
+            <div class="pain-row">
+              <div class="pain">
+                <span class="pain-title">Informação espalhada</span>
+                <span class="pain-txt">Dados de cada talhão em lugares diferentes, difíceis de consultar.</span>
+              </div>
+              <div class="pain">
+                <span class="pain-title">Estoque sem controle</span>
+                <span class="pain-txt">Insumos acabam sem aviso ou são comprados em excesso.</span>
+              </div>
+              <div class="pain">
+                <span class="pain-title">Aplicações sem histórico</span>
+                <span class="pain-txt">Pouca rastreabilidade de defensivos e ocorrências fitossanitárias.</span>
+              </div>
+              <div class="pain">
+                <span class="pain-title">Custo desconhecido</span>
+                <span class="pain-txt">Difícil saber quanto custou produzir e quanto rendeu cada safra.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 04 Finalidade e objetivos -->
+        <article class="slide" data-slide="4" data-speaker="Lucas Mendes" data-topic="Finalidade e objetivos">
+          <div class="slide-inner l-statement">
+            <h2 class="title-section">Finalidade e objetivos</h2>
+            <div class="purpose">
+              <span class="label">Finalidade</span>
+              <span class="compare-value">Centralizar a gestão da propriedade citrícola em um sistema web simples, do plantio à colheita.</span>
+            </div>
+            <ol class="goal-list">
+              <li><span>Organizar <strong>propriedades, talhões e culturas</strong> em um só lugar</span></li>
+              <li><span>Registrar <strong>atividades agrícolas</strong> com data, local e responsável</span></li>
+              <li><span>Controlar o <strong>estoque de insumos</strong> com validação de saldo</span></li>
+              <li><span>Rastrear <strong>aplicações e ocorrências fitossanitárias</strong></span></li>
+              <li><span>Acompanhar <strong>colheitas e custos</strong> de produção</span></li>
+              <li><span>Apoiar decisões com <strong>dashboard e relatórios</strong></span></li>
+            </ol>
+          </div>
+        </article>
+
+        <!-- 05 Funcionalidades -->
+        <article class="slide" data-slide="5" data-speaker="Lucas Mendes" data-topic="Funcionalidades">
+          <div class="slide-inner l-statement">
+            <h2 class="title-section">Principais funcionalidades</h2>
+            <div class="feat">
+              <div class="feat-item">
+                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg></span>
+                <div><div class="feat-name">Propriedades e talhões</div><div class="feat-txt">Cadastro da fazenda dividida em talhões, com endpoints REST próprios.</div></div>
+              </div>
+              <div class="feat-item">
+                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><path d="M12 6c0-2 1.5-3 3.5-3-.2 2-1.5 3-3.5 3z"/><path d="M12 10v6M9 13h6"/></svg></span>
+                <div><div class="feat-name">Culturas e atividades agrícolas</div><div class="feat-txt">Registro das atividades de campo — as regras centrais do domínio.</div></div>
+              </div>
+              <div class="feat-item">
+                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5v10l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v10"/></svg></span>
+                <div><div class="feat-name">Estoque e insumos</div><div class="feat-txt">Entradas, saídas e validação de saldo antes de cada uso.</div></div>
+              </div>
+              <div class="feat-item">
+                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14.5l2 2 3.5-4"/></svg></span>
+                <div><div class="feat-name">Aplicações e ocorrências fitossanitárias</div><div class="feat-txt">Histórico de defensivos aplicados, pragas e doenças por talhão.</div></div>
+              </div>
+              <div class="feat-item">
+                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M6 20V11M11 20V6M16 20v-6"/><path d="M19 4l-3 3"/></svg></span>
+                <div><div class="feat-name">Colheitas e custos</div><div class="feat-txt">Produção colhida e informações financeiras de cada safra.</div></div>
+              </div>
+              <div class="feat-item">
+                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></span>
+                <div><div class="feat-name">Dashboard e relatórios</div><div class="feat-txt">Visão consolidada da propriedade para apoiar decisões.</div></div>
+              </div>
+              <div class="feat-item">
+                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+                <div><div class="feat-name">Autenticação e perfis de acesso</div><div class="feat-txt">Login e permissões diferentes para cada tipo de usuário.</div></div>
+              </div>
+              <div class="feat-item">
+                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6M10 4v5l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V4"/><path d="M7.5 15h9"/></svg></span>
+                <div><div class="feat-name">Regras de negócio</div><div class="feat-txt">Validações de estoque, talhões e permissões aplicadas no backend.</div></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 06 Usuários e arquitetura -->
+        <article class="slide" data-slide="6" data-speaker="Lucas Mendes" data-topic="Usuários e arquitetura">
+          <div class="slide-inner l-split wide-right">
+            <div class="split-content">
+              <h2 class="title-section">Quem usa e como o sistema é construído</h2>
+              <div class="profiles">
+                <div class="profile"><span class="profile-name">Produtor</span><span class="profile-txt">Dono da propriedade: acompanha custos, colheitas e relatórios.</span></div>
+                <div class="profile"><span class="profile-name">Funcionário</span><span class="profile-txt">Registra as atividades do dia a dia no campo.</span></div>
+                <div class="profile"><span class="profile-name">Resp. técnico</span><span class="profile-txt">Acompanha aplicações e ocorrências fitossanitárias.</span></div>
+              </div>
+              <span class="label" style="margin-top:6px">Ferramentas e tecnologias</span>
+              <div class="stack-tags">
+                <span class="tag">Angular</span><span class="tag">Spring Boot</span><span class="tag">API REST</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">Figma</span><span class="tag">JUnit + Mockito</span><span class="tag">Postman</span><span class="tag">UML</span>
+              </div>
+            </div>
+            <div class="arch">
+              <svg viewBox="0 0 560 400" role="img" aria-label="Arquitetura cliente-servidor: Angular no navegador se comunica via API REST com o backend Spring Boot, dividido em Controller, Service e Repository, que persiste no PostgreSQL; tudo em containers Docker.">
+                <rect x="1" y="1" width="558" height="398" rx="14" fill="none" stroke="#d4d2c9" stroke-dasharray="5 5"/>
+                <text x="20" y="28" font-family="Outfit" font-size="12" font-weight="600" letter-spacing="2" fill="#6b6b66">CONTAINERS DOCKER</text>
+
+                <rect x="20" y="52" width="170" height="130" rx="12" fill="#fff" stroke="#e8e6e0"/>
+                <text x="38" y="80" font-family="Outfit" font-size="12" font-weight="600" letter-spacing="1.6" fill="#6b6b66">FRONTEND</text>
+                <text x="38" y="112" font-family="Outfit" font-size="26" font-weight="400" fill="#0a0a0a">Angular</text>
+                <text x="38" y="138" font-family="Inter" font-size="12.5" fill="#6b6b66">Telas, navegação e</text>
+                <text x="38" y="156" font-family="Inter" font-size="12.5" fill="#6b6b66">componentes (Figma)</text>
+
+                <line x1="190" y1="117" x2="262" y2="117" stroke="#0a0a0a" stroke-width="1.5"/>
+                <path d="M254 111l8 6-8 6" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+                <rect x="198" y="92" width="56" height="18" rx="4" fill="#f7f6f2"/>
+                <text x="226" y="105" text-anchor="middle" font-family="Outfit" font-size="11" font-weight="600" fill="#a8520a">REST</text>
+                <text x="226" y="140" text-anchor="middle" font-family="Inter" font-size="11" fill="#9a988f">JSON</text>
+
+                <rect x="266" y="52" width="274" height="210" rx="12" fill="#0a0a0a"/>
+                <text x="286" y="80" font-family="Outfit" font-size="12" font-weight="600" letter-spacing="1.6" fill="#9a988f">BACKEND</text>
+                <text x="286" y="112" font-family="Outfit" font-size="26" font-weight="400" fill="#f7f6f2">Spring Boot</text>
+                <rect x="286" y="130" width="234" height="34" rx="7" fill="none" stroke="#3a3a38"/>
+                <text x="300" y="152" font-family="Outfit" font-size="14" font-weight="500" fill="#f7f6f2">Controller</text>
+                <text x="506" y="152" text-anchor="end" font-family="Inter" font-size="11.5" fill="#9a988f">endpoints</text>
+                <rect x="286" y="170" width="234" height="34" rx="7" fill="none" stroke="#3a3a38"/>
+                <text x="300" y="192" font-family="Outfit" font-size="14" font-weight="500" fill="#f7f6f2">Service</text>
+                <text x="506" y="192" text-anchor="end" font-family="Inter" font-size="11.5" fill="#9a988f">regras de negócio</text>
+                <rect x="286" y="210" width="234" height="34" rx="7" fill="none" stroke="#3a3a38"/>
+                <text x="300" y="232" font-family="Outfit" font-size="14" font-weight="500" fill="#f7f6f2">Repository</text>
+                <text x="506" y="232" text-anchor="end" font-family="Inter" font-size="11.5" fill="#9a988f">acesso a dados</text>
+
+                <line x1="403" y1="262" x2="403" y2="298" stroke="#0a0a0a" stroke-width="1.5"/>
+                <path d="M397 290l6 8 6-8" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+
+                <rect x="266" y="302" width="274" height="78" rx="12" fill="rgba(0,140,126,.09)" stroke="#008c7e"/>
+                <text x="286" y="330" font-family="Outfit" font-size="12" font-weight="600" letter-spacing="1.6" fill="#006b60">BANCO DE DADOS</text>
+                <text x="286" y="360" font-family="Outfit" font-size="22" font-weight="400" fill="#0a0a0a">PostgreSQL</text>
+                <text x="520" y="360" text-anchor="end" font-family="Inter" font-size="11.5" fill="#006b60">+ backups</text>
+
+                <text x="20" y="226" font-family="Outfit" font-size="12" font-weight="600" letter-spacing="1.6" fill="#6b6b66">SEGURANÇA</text>
+                <text x="20" y="248" font-family="Inter" font-size="12.5" fill="#1c1c1c">Autenticação e</text>
+                <text x="20" y="266" font-family="Inter" font-size="12.5" fill="#1c1c1c">autorização por perfil</text>
+                <text x="20" y="308" font-family="Outfit" font-size="12" font-weight="600" letter-spacing="1.6" fill="#6b6b66">MODELAGEM</text>
+                <text x="20" y="330" font-family="Inter" font-size="12.5" fill="#1c1c1c">Casos de uso, classes</text>
+                <text x="20" y="348" font-family="Inter" font-size="12.5" fill="#1c1c1c">e atividades em UML</text>
+              </svg>
+            </div>
+          </div>
+        </article>
+
+        <!-- T2 Transição Rhiady -->
+        <article class="slide" data-slide="t2">
+          <div class="slide-inner l-transition">
+            <span class="t-part">Parte 2 · O planejamento</span>
+            <div>
+              <div class="t-name">Rhiady<br>Vieira</div>
+              <div class="t-accent"></div>
+            </div>
+            <p class="t-topics">Como planejamos · Cronograma · Quadro no Monday.com · Análise · Simulação de atraso · Aprendizados</p>
+          </div>
+        </article>
+
+        <!-- 07 Como planejamos -->
+        <article class="slide" data-slide="7" data-speaker="Rhiady Vieira" data-topic="Como planejamos">
+          <div class="slide-inner l-statement">
+            <h2 class="title-section">Como planejamos o projeto</h2>
+            <p class="lead">Dividimos o desenvolvimento nas fases clássicas da engenharia de software e cadastramos cada atividade no Monday.com, com duração definida pela complexidade técnica — e não um valor igual para todas.</p>
+            <div class="facts">
+              <div class="fact"><div class="fact-v">179</div><div class="fact-l">dias corridos de projeto</div></div>
+              <div class="fact"><div class="fact-v">7</div><div class="fact-l">fases, de requisitos à manutenção</div></div>
+              <div class="fact"><div class="fact-v">53</div><div class="fact-l">atividades cadastradas</div></div>
+              <div class="fact"><div class="fact-v">2</div><div class="fact-l">integrantes com tarefas divididas</div></div>
+            </div>
+            <span class="label">O que cada atividade registra no quadro</span>
+            <div class="cols-demo">
+              <span class="col-chip">Responsável</span>
+              <span class="col-chip">Data de início</span>
+              <span class="col-chip">Data de término</span>
+              <span class="col-chip">Duração (dias)</span>
+              <span class="col-chip key">Folga (dias)</span>
+              <span class="col-chip key">Dependência</span>
+              <span class="col-chip">Status</span>
+              <span class="col-chip">Observação</span>
+              <span class="col-chip">Cronograma (Gantt)</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 08 Cronograma -->
+        <article class="slide" data-slide="8" data-speaker="Rhiady Vieira" data-topic="Cronograma">
+          <div class="slide-inner l-gantt">
+            <h2 class="title-section">Cronograma: 21/09/2026 a 18/03/2027</h2>
+            <div class="gantt" id="gantt">
+              <div class="g-head">
+                <span class="label">Fase</span>
+                <div class="g-months" id="g-months"></div>
+                <span class="label" style="text-align:right">Período</span>
+              </div>
+            </div>
+            <div class="g-legend">
+              <span class="g-key"><span class="g-swatch"></span>Fase do projeto</span>
+              <span class="g-key"><span class="g-swatch impl"></span>Implementação — a fase mais longa (62 dias)</span>
+              <span class="g-key"><span class="g-swatch crit"></span>Integração frontend + API REST — atividade crítica</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 09 Quadro ao vivo -->
+        <article class="slide" data-slide="9" data-speaker="Rhiady Vieira" data-topic="Quadro no Monday.com">
+          <div class="slide-inner l-split">
+            <div class="split-content">
+              <h2 class="title-section">O cronograma completo, ao vivo no Monday.com</h2>
+              <p class="lead">Todas as 53 atividades, com responsáveis, datas, folgas e dependências, estão no quadro do projeto.</p>
+              <ol class="steps">
+                <li>Quadro principal: as atividades agrupadas pelas 7 fases</li>
+                <li>Colunas de folga e dependência de cada atividade</li>
+                <li>Visão Gantt: a sequência e as ligações entre as tarefas</li>
+              </ol>
+            </div>
+            <div class="link-panel">
+              <span class="label">Link do quadro</span>
+              <span class="link-url">rhiadyv1s-team.monday.com/<wbr>boards/18430444123</span>
+              <a class="open-btn" href="https://rhiadyv1s-team.monday.com/boards/18430444123" target="_blank" rel="noopener">
+                Abrir cronograma
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7M13 3L4 12"/></svg>
+              </a>
+              <div class="views">
+                <div class="view"><div class="view-name">Quadro principal</div><div class="view-txt">Tabela por fase com todas as colunas</div></div>
+                <div class="view"><div class="view-name">Gantt</div><div class="view-txt">Linha do tempo com as dependências</div></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 10 Análise -->
+        <article class="slide" data-slide="10" data-speaker="Rhiady Vieira" data-topic="Análise do cronograma">
+          <div class="slide-inner l-table">
+            <h2 class="title-section">O que a análise do cronograma mostrou</h2>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr><th>Pergunta</th><th>Resposta</th><th>Por quê</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Primeira atividade</td><td class="ans">Identificar stakeholders — 21/09/2026</td><td>Define quem participa das entrevistas e valida os requisitos</td></tr>
+                  <tr><td>Última antes da manutenção</td><td class="ans">Liberar implantação piloto — 04/03/2027</td><td>Depois dela começa o monitoramento em produção</td></tr>
+                  <tr><td>Em paralelo</td><td class="ans">Backend Spring Boot × frontend Angular</td><td>Também entrevistas × necessidades, protótipos no Figma × definições técnicas</td></tr>
+                  <tr><td>Dependências</td><td class="ans">Requisitos → análise → design → implementação → testes → implantação</td><td>Ex.: entrevistas dependem dos stakeholders; testes integrados, da integração</td></tr>
+                  <tr><td>Folgas</td><td class="ans"><span class="pill ok">1 a 3 dias</span> &nbsp;<span class="pill bad">folga 0 = sem margem</span></td><td>Atividades paralelas absorvem atrasos; as de folga zero exigem atenção</td></tr>
+                  <tr><td>Maior atividade</td><td class="ans">Dashboard, colheitas, custos e relatórios — 9 dias</td><td>A maior tarefa do frontend; a maioria das demais tem até 5 dias</td></tr>
+                  <tr><td>Maior impacto se atrasar</td><td class="ans">Integrar frontend Angular com API REST <span class="pill warn">folga 0</span></td><td>Sem ela, o sistema não pode ser testado de forma integrada</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+
+        <!-- 11 Simulação de atraso -->
+        <article class="slide" data-slide="11" data-speaker="Rhiady Vieira" data-topic="Simulação de atraso">
+          <div class="slide-inner l-sim" id="sim">
+            <h2 class="title-section">Simulação: +5 dias na integração frontend + API REST</h2>
+            <div class="sim-scene">
+              <div class="sim-chart">
+                <div class="s-head">
+                  <span class="label">Atividade</span>
+                  <div class="g-months" id="s-months"></div>
+                </div>
+                <div id="s-rows"></div>
+              </div>
+              <div class="sim-panel">
+                <div class="sim-card"><div class="sim-card-lbl">Atividade escolhida</div><div class="sim-card-txt">Integrar frontend Angular com API REST — prevista de 06/01 a 12/01/2027</div></div>
+                <div class="sim-card"><div class="sim-card-lbl">Por que ela</div><div class="sim-card-txt">Folga zero e ponto de encontro entre frontend e backend: sem ela, não há teste integrado</div></div>
+                <div class="sim-card"><div class="sim-card-lbl">Atraso aplicado</div><div class="sim-card-txt">+5 dias — término passa para 17/01/2027</div></div>
+                <div class="sim-result"><div class="sim-card-lbl">Resultado</div><div class="sim-card-txt">As folgas absorveram o atraso: os testes terminam 1 dia depois e o piloto continua em 04/03/2027</div></div>
+                <div class="sim-controls">
+                  <button class="act-btn primary" id="sim-play" type="button">Aplicar atraso</button>
+                  <button class="act-btn" id="sim-reset" type="button" disabled>Resetar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 12 Mitigação e aprendizados -->
+        <article class="slide" data-slide="12" data-speaker="Rhiady Vieira" data-topic="Aprendizados">
+          <div class="slide-inner l-compare">
+            <h2 class="title-section">Como reduzir o impacto — e o que aprendemos</h2>
+            <div class="grid-2">
+              <div class="compare-card">
+                <span class="label">Se a atividade crítica atrasar</span>
+                <div class="compare-value">Agir antes que o atraso local vire atraso global</div>
+                <ul class="bullet-list">
+                  <li>Redistribuir atividades entre os integrantes</li>
+                  <li>Priorizar as funcionalidades essenciais</li>
+                  <li>Testar backend e frontend de forma independente, em paralelo</li>
+                  <li>Antecipar a preparação do ambiente de implantação</li>
+                  <li>Acompanhar diariamente a atividade atrasada</li>
+                </ul>
+              </div>
+              <div class="compare-card dark">
+                <span class="label">O que aprendemos</span>
+                <div class="compare-value">Nem todo atraso de 5 dias vira 5 dias no prazo final</div>
+                <ul class="bullet-list">
+                  <li><strong>Dependências</strong> mostram quem é afetado por um atraso</li>
+                  <li><strong>Folgas</strong> absorvem imprevistos sem mexer na entrega</li>
+                  <li><strong>Paralelismo</strong> reduz o tempo total e divide o trabalho da dupla</li>
+                  <li>Atividades com <strong>folga zero</strong> precisam de acompanhamento mais próximo</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Encerramento -->
+        <article class="slide has-dotgrid" data-slide="closing">
+          <div class="slide-inner l-cover">
+            <img class="cover-logo" src="imagens/logo-unifef.png" alt="UNIFEF — Centro Universitário de Fernandópolis" />
+            <div class="cover-hero">
+              <h1 class="display-xl">Obrigado</h1>
+              <div class="cover-accent"></div>
+            </div>
+            <p class="cover-sub">Sistema de Gestão Agrícola para Pequenos e Médios Produtores de Frutas Cítricas</p>
+            <div class="meta">
+              <div class="meta-item">
+                <span class="label">Integrantes</span>
+                <span class="meta-value names">Lucas Mendes · Rhiady Vieira</span>
+              </div>
+              <div class="meta-item">
+                <span class="label">Cronograma</span>
+                <a class="meta-value names" href="https://rhiadyv1s-team.monday.com/boards/18430444123" target="_blank" rel="noopener">Quadro no Monday.com</a>
+              </div>
+              <div class="meta-item">
+                <span class="label">Disciplina</span>
+                <span class="meta-value names">Engenharia de Software e Gerência de Projetos</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </section>
+
+      <footer class="bottombar">
+        <div class="nav-group">
+          <button class="nav-btn" id="prev" type="button" aria-label="Slide anterior">Anterior</button>
+          <button class="nav-btn" id="next" type="button" aria-label="Próximo slide">Próximo</button>
+        </div>
+        <div class="progress" aria-hidden="true">
+          <div class="progress-fill" id="progress"></div>
+        </div>
+        <span class="nav-hint">← → para navegar</span>
+      </footer>
+    </main>
+
+    <script>
+      (function () {
+        var DAY = 86400000;
+        function d(s) { var p = s.split("-"); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }
+        var MONTHS = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+        function fmt(t) { var x = new Date(t); return String(x.getUTCDate()).padStart(2,"0") + "/" + String(x.getUTCMonth()+1).padStart(2,"0"); }
+
+        function monthTicks(el, start, end, withGrid) {
+          var span = end - start, x = new Date(start), ticks = [];
+          var m = Date.UTC(x.getUTCFullYear(), x.getUTCMonth() + (x.getUTCDate() > 1 ? 1 : 0), 1);
+          if (x.getUTCDate() > 1) ticks.push({ t: start, label: MONTHS[x.getUTCMonth()] });
+          while (m < end) {
+            var dm = new Date(m);
+            ticks.push({ t: m, label: MONTHS[dm.getUTCMonth()] + (dm.getUTCMonth() === 0 ? " ’" + String(dm.getUTCFullYear()).slice(2) : "") });
+            m = Date.UTC(dm.getUTCFullYear(), dm.getUTCMonth() + 1, 1);
+          }
+          ticks.forEach(function (k) {
+            var s = document.createElement("span");
+            s.className = "g-month"; s.textContent = k.label;
+            s.style.left = ((k.t - start) / span * 100) + "%";
+            el.appendChild(s);
+          });
+          return ticks;
+        }
+
+        /* ---------- Gantt das fases ---------- */
+        var G0 = d("2026-09-21"), G1 = d("2027-03-19"), GS = G1 - G0;
+        var phases = [
+          { n: "Levantamento de Requisitos", a: 9,  s: "2026-09-21", e: "2026-10-12", days: 22 },
+          { n: "Análise de Sistemas",        a: 8,  s: "2026-10-13", e: "2026-10-28", days: 16 },
+          { n: "Design",                     a: 8,  s: "2026-10-29", e: "2026-11-19", days: 22 },
+          { n: "Implementação",              a: 12, s: "2026-11-20", e: "2027-01-20", days: 62, impl: true, crit: ["2027-01-06","2027-01-17"] },
+          { n: "Testes",                     a: 6,  s: "2027-01-18", e: "2027-02-09", days: 23 },
+          { n: "Implantação",                a: 7,  s: "2027-02-10", e: "2027-03-04", days: 23 },
+          { n: "Manutenção",                 a: 3,  s: "2027-03-05", e: "2027-03-18", days: 14 }
+        ];
+        var gantt = document.getElementById("gantt");
+        var ticks = monthTicks(document.getElementById("g-months"), G0, G1);
+        phases.forEach(function (p, i) {
+          var row = document.createElement("div");
+          row.className = "g-row";
+          var s = d(p.s), e = d(p.e) + DAY;
+          var grid = ticks.map(function (k) { return '<span class="g-grid" style="left:' + ((k.t - G0) / GS * 100) + '%"></span>'; }).join("");
+          var crit = p.crit ? '<span class="g-crit" style="left:' + ((d(p.crit[0]) - G0) / GS * 100) + '%;width:' + ((d(p.crit[1]) + DAY - d(p.crit[0])) / GS * 100) + '%"></span>' : "";
+          row.innerHTML =
+            '<div class="g-name">' + p.n + '<small>' + p.a + ' atividades · ' + p.days + ' dias</small></div>' +
+            '<div class="g-track">' + grid +
+              '<span class="g-bar' + (p.impl ? " impl" : "") + '" style="left:' + ((s - G0) / GS * 100) + '%;width:' + ((e - s) / GS * 100) + '%;transition-delay:' + (120 + i * 110) + 'ms"></span>' + crit +
+            '</div>' +
+            '<div class="g-dates">' + fmt(s) + ' → ' + fmt(e - DAY) + '</div>';
+          gantt.appendChild(row);
+        });
+
+        /* ---------- Simulação de atraso ---------- */
+        var S0 = d("2027-01-05"), S1 = d("2027-02-21"), SS = S1 - S0;
+        var acts = [
+          { n: "Integrar frontend Angular com API REST", root: true, s: "2027-01-06", e: "2027-01-12", e2: "2027-01-17" },
+          { n: "Testes unitários do backend",       s: "2027-01-13", e: "2027-01-18", s2: "2027-01-18", e2: "2027-01-23" },
+          { n: "Testes funcionais do frontend",     s: "2027-01-19", e: "2027-01-25", s2: "2027-01-19", e2: "2027-01-25" },
+          { n: "Testes de integração",              s: "2027-01-19", e: "2027-01-22", s2: "2027-01-24", e2: "2027-01-27" },
+          { n: "Testar endpoints da API REST",      s: "2027-01-25", e: "2027-01-27", s2: "2027-01-26", e2: "2027-01-28" },
+          { n: "Corrigir falhas identificadas",     s: "2027-01-28", e: "2027-02-03", s2: "2027-01-29", e2: "2027-02-04" },
+          { n: "Testes de aceitação com usuários",  s: "2027-02-04", e: "2027-02-08", s2: "2027-02-05", e2: "2027-02-09" },
+          { n: "Preparar ambiente de produção",     s: "2027-02-09", e: "2027-02-11", s2: "2027-02-10", e2: "2027-02-12" }
+        ];
+        function pct(t) { return ((t - S0) / SS * 100) + "%"; }
+        var sRows = document.getElementById("s-rows");
+        var sTicks = monthTicks(document.getElementById("s-months"), S0, S1);
+        var bars = [];
+        acts.forEach(function (a) {
+          var row = document.createElement("div");
+          row.className = "s-row" + (a.root ? " root" : "");
+          var s = d(a.s), e = d(a.e) + DAY;
+          var grid = sTicks.map(function (k) { return '<span class="g-grid" style="left:' + pct(k.t) + '"></span>'; }).join("");
+          var shift, cls;
+          if (a.root) { shift = "+5 dias"; cls = "late"; }
+          else {
+            var ds = Math.round((d(a.s2) - s) / DAY);
+            shift = ds === 0 ? "absorvido pela folga" : "+" + ds + (ds === 1 ? " dia" : " dias");
+            cls = ds === 0 ? "same" : "late";
+          }
+          row.innerHTML =
+            '<div class="s-name">' + a.n + '</div>' +
+            '<div class="s-track">' + grid +
+              (a.root ? "" : '<span class="s-ghost" style="left:' + pct(s) + ';width:' + ((e - s) / SS * 100) + '%"></span>') +
+              '<span class="s-bar" style="left:' + pct(s) + ';width:' + ((e - s) / SS * 100) + '%"></span>' +
+              (a.root ? '<span class="s-ext" style="left:' + pct(e) + '"></span>' : "") +
+              '<span class="s-shift ' + cls + '"></span>' +
+            '</div>';
+          sRows.appendChild(row);
+          var bar = row.querySelector(".s-bar"), ext = row.querySelector(".s-ext"), lab = row.querySelector(".s-shift");
+          lab.textContent = shift;
+          bars.push({ a: a, bar: bar, ext: ext, lab: lab, s: s, e: e });
+        });
+        var sim = document.getElementById("sim"), play = document.getElementById("sim-play"), reset = document.getElementById("sim-reset");
+        function place(on) {
+          bars.forEach(function (b) {
+            var a = b.a;
+            if (a.root) {
+              var e2 = d(a.e2) + DAY;
+              b.ext.style.width = on ? ((e2 - b.e) / SS * 100) + "%" : "0";
+              b.lab.style.left = on ? pct(e2) : pct(b.e);
+            } else {
+              var s = on ? d(a.s2) : b.s, e = on ? d(a.e2) + DAY : b.e;
+              b.bar.style.left = pct(s);
+              b.bar.style.width = ((e - s) / SS * 100) + "%";
+              b.lab.style.left = pct(e);
+            }
+          });
+          sim.classList.toggle("sim-on", on);
+          play.disabled = on; reset.disabled = !on;
+        }
+        place(false);
+        play.addEventListener("click", function () { place(true); });
+        reset.addEventListener("click", function () { place(false); });
+
+        /* ---------- Navegação ---------- */
+        var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+        var total = slides.length;
+        var currentEl = document.getElementById("current");
+        var progress = document.getElementById("progress");
+        var prevBtn = document.getElementById("prev");
+        var nextBtn = document.getElementById("next");
+        var speaker = document.getElementById("speaker");
+        var speakerName = document.getElementById("speaker-name");
+        var speakerTopic = document.getElementById("speaker-topic");
+        var ganttSlide = gantt.closest(".slide");
+        var index = 0;
+
+        document.getElementById("total").textContent = "/ " + String(total).padStart(2, "0");
+
+        function render() {
+          slides.forEach(function (s, i) { s.classList.toggle("active", i === index); });
+          var cur = slides[index];
+          currentEl.textContent = String(index + 1).padStart(2, "0");
+          progress.style.transform = "scaleX(" + (index + 1) / total + ")";
+          prevBtn.disabled = index === 0;
+          nextBtn.disabled = index === total - 1;
+          var who = cur.getAttribute("data-speaker");
+          speaker.hidden = !who;
+          if (who) { speakerName.textContent = who; speakerTopic.textContent = "· " + cur.getAttribute("data-topic"); }
+          var gOn = cur === ganttSlide;
+          ganttSlide.querySelectorAll(".g-bar").forEach(function (b) { b.style.transform = gOn ? "scaleX(1)" : "scaleX(0)"; });
+          if (cur !== sim.closest(".slide")) place(false);
+        }
+
+        function go(dir) {
+          var n = Math.max(0, Math.min(total - 1, index + dir));
+          if (n === index) return;
+          index = n;
+          render();
+        }
+
+        prevBtn.addEventListener("click", function () { go(-1); });
+        nextBtn.addEventListener("click", function () { go(1); });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.target.closest && e.target.closest("button, a") && (e.key === " " || e.key === "Enter")) return;
+          if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); go(1); }
+          else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); go(-1); }
+          else if (e.key === "Home") { index = 0; render(); }
+          else if (e.key === "End") { index = total - 1; render(); }
+        });
+
+        var tx = 0;
+        document.addEventListener("touchstart", function (e) { tx = e.changedTouches[0].clientX; }, { passive: true });
+        document.addEventListener("touchend", function (e) {
+          var dx = e.changedTouches[0].clientX - tx;
+          if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+        }, { passive: true });
+
+        var hash = parseInt(location.hash.slice(1), 10);
+        if (hash >= 1 && hash <= total) index = hash - 1;
+        render();
+        if (/[?&]sim\b/.test(location.search)) place(true);
+      })();
+    </script>
+  </body>
+</html>

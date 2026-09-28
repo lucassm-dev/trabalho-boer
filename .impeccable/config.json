@@ -1,0 +1,50 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "apresentacao-gestao-agricola.html"
+        ],
+        "createdAt": "2026-09-28T17:46:20.537Z",
+        "reason": "Agent: all flagged containers carry clamp() padding; verified generous insets in 1920x1080 screenshots; hairline row dividers are intentional"
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-09-28T17:46:21.424Z",
+        "reason": "User pinned Inter + Outfit from the RAID reference deck"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "apresentacao-gestao-agricola.html"
+        ],
+        "createdAt": "2026-09-28T17:46:22.697Z",
+        "reason": "Agent: 1.15 leading only on Outfit display values (compare-value), inherited from pinned RAID style"
+      },
+      {
+        "rule": "all-caps-body",
+        "value": "*",
+        "files": [
+          "apresentacao-gestao-agricola.html"
+        ],
+        "createdAt": "2026-09-28T17:46:24.779Z",
+        "reason": "Agent: uppercase only on short tracked labels, pinned RAID label style"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "apresentacao-gestao-agricola.html"
+        ],
+        "createdAt": "2026-09-28T17:46:25.605Z",
+        "reason": "Agent: hatched stripe encodes the +5-day delay in the simulation chart, not decoration"
+      }
+    ]
+  }
+}
