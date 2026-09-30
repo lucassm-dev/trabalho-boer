@@ -7,7 +7,7 @@
     <title>Gestão Agrícola Cítrica — Planejamento do Projeto</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@200;300;400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@300;400;500;600&family=Outfit:wght@200;300;400;500;600;700&display=swap" />
     <style>
       :root {
         --bg: #f7f6f2;
@@ -457,12 +457,293 @@
       .sim-controls { display: flex; gap: 8px; }
       .sim-controls .act-btn { flex: 1; white-space: nowrap; padding-left: 12px; padding-right: 12px; }
 
+      /* ---------- Revelação por etapas ---------- */
+      .slide [data-step] { opacity: 0; transform: translateY(10px); transition: opacity 380ms var(--ease), transform 520ms var(--ease-out); }
+      .slide [data-step].on { opacity: 1; transform: none; }
+      .slide svg [data-step] { transform: none; }
+      .step-dots { display: flex; align-items: center; gap: 6px; }
+      .step-dots[hidden] { display: none; }
+      .step-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--line-strong); transition: background 260ms var(--ease); }
+      .step-dots i.on { background: var(--accent); }
+
+      /* ---------- Seu Ricardo ---------- */
+      .l-story { grid-template-columns: 1fr 1.02fr; }
+      .l-story .display-md { font-size: clamp(28px,min(3.5vw,5.8vh),58px); }
+      .l-story .lead { font-size: clamp(14px,min(1.25vw,2.1vh),21px); }
+      .story-facts { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--ink); }
+      .sfact { display: flex; flex-direction: column; gap: 2px; padding: clamp(9px,1.3vh,14px) clamp(12px,1.2vw,18px) clamp(9px,1.3vh,14px) 0; border-bottom: 1px solid var(--line); }
+      .sfact:nth-child(even) { padding-left: clamp(12px,1.2vw,18px); border-left: 1px solid var(--line); }
+      .sfact-v { font-family: "Outfit",sans-serif; font-weight: 400; font-size: clamp(17px,min(1.7vw,2.8vh),27px); line-height: 1.1; letter-spacing: -.015em; color: var(--ink); }
+      .sfact-l { font-size: clamp(12px,min(.9vw,1.5vh),14px); color: var(--muted); }
+      .people { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(16px,1.6vw,26px); }
+      .person { display: flex; flex-direction: column; gap: 1px; padding: clamp(7px,1.05vh,11px) 0; border-bottom: 1px solid var(--line); }
+      .person-name { font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(14px,min(1.12vw,1.85vh),18px); color: var(--ink); }
+      .person-role { font-size: clamp(12px,min(.88vw,1.45vh),14px); color: var(--muted); line-height: 1.4; }
+      .footnote { font-size: clamp(11px,min(.8vw,1.3vh),13px); color: var(--muted); }
+      .farm svg { width: 100%; height: auto; max-height: 66vh; display: block; }
+      .f-road { fill: #ecebe5; }
+      .f-road-mid { stroke: #fff; stroke-width: 2; stroke-dasharray: 10 8; }
+      .f-cap { font-family: "Outfit",sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; fill: #5f5f5a; }
+      .f-path { stroke: #d4d2c9; stroke-width: 2; stroke-dasharray: 3 4; }
+      .f-ground { fill: #fbfaf5; stroke: #e8e6e0; }
+      .f-bound { fill: none; stroke: #f58220; stroke-width: 1.6; stroke-dasharray: 6 6; }
+      .f-plot { fill: rgba(0,140,126,.05); stroke: rgba(0,140,126,.28); }
+      .f-tree { fill: #008c7e; opacity: .78; }
+      .f-fruit { fill: #f58220; }
+      .f-pill { fill: #fff; stroke: #e8e6e0; }
+      .f-pill-t { font-family: "Outfit",sans-serif; font-size: 12px; font-weight: 500; fill: #0a0a0a; }
+      .f-creek { fill: none; stroke: #a9d9d2; stroke-width: 9; stroke-linecap: round; }
+      .f-roof { fill: #f58220; }
+      .f-house { fill: #fff; stroke: #0a0a0a; stroke-width: 1.3; }
+      .f-door { fill: #0a0a0a; }
+      .f-area { fill: #0a0a0a; }
+      .f-area-t { font-family: "Outfit",sans-serif; font-size: 12.5px; font-weight: 500; fill: #f7f6f2; }
+
+      /* ---------- Problema: exemplos ---------- */
+      .pain .pill { align-self: flex-start; margin-bottom: 4px; }
+      .pill.neutral { background: #efeee8; color: var(--muted); }
+      .pain-ex {
+        margin-top: 6px; padding-top: 10px; border-top: 1px dashed var(--line-strong);
+        font-size: clamp(13px,min(1vw,1.7vh),16px); color: var(--ink-2); line-height: 1.45; font-style: italic;
+      }
+
+      /* ---------- Antes × depois ---------- */
+      .ba { display: grid; grid-template-columns: .92fr auto 1.3fr; gap: clamp(14px,1.8vw,30px); align-items: center; }
+      .ba-col { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+      .ba-arrow { color: var(--accent); padding-top: 22px; }
+      .ba-arrow svg { width: clamp(30px,2.8vw,44px); height: auto; display: block; }
+      .notebook {
+        --nb-lh: clamp(30px,4.3vh,40px);
+        position: relative;
+        background-color: #fffdf5;
+        background-image:
+          linear-gradient(90deg, transparent 46px, rgba(217,65,43,.35) 46px 47px, transparent 47px),
+          repeating-linear-gradient(180deg, transparent 0 calc(var(--nb-lh) - 1px), #d6e0ea calc(var(--nb-lh) - 1px) var(--nb-lh));
+        padding: calc(var(--nb-lh) * .5) 22px calc(var(--nb-lh) * .8) 60px;
+        border: 1px solid var(--line); border-radius: 6px 12px 12px 6px;
+        box-shadow: 0 12px 22px -16px rgba(10,10,10,.28), 0 1px 3px rgba(10,10,10,.05);
+        font-family: "Caveat","Segoe Print","Bradley Hand",cursive;
+        font-size: clamp(20px,min(1.75vw,3vh),29px); line-height: var(--nb-lh); color: #27407a;
+        transform: rotate(-1.2deg);
+      }
+      .nb-line { white-space: nowrap; }
+      .nb-date { color: #6b7aa6; }
+      .nb-line s { text-decoration-thickness: 2px; color: #6b7aa6; }
+      .nb-q { color: #b3261e; }
+      .nb-sticky {
+        position: absolute; right: -26px; bottom: -22px; width: 36%;
+        background: #ffe7a3; color: #5a4200; padding: 10px 12px 12px;
+        font-size: .88em; line-height: 1.05;
+        transform: rotate(5deg);
+        box-shadow: 0 12px 20px -12px rgba(10,10,10,.4);
+      }
+
+      /* ---------- Protótipos (moldura comum) ---------- */
+      .mock {
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+        box-shadow: 0 14px 24px -18px rgba(10,10,10,.24), 0 1px 3px rgba(10,10,10,.04);
+        font-size: clamp(11px,min(.88vw,1.48vh),14px); color: var(--ink-2);
+      }
+      .mock-bar { display: flex; align-items: center; gap: clamp(12px,1.4vw,22px); padding: clamp(8px,1.1vh,12px) clamp(12px,1.2vw,18px); border-bottom: 1px solid var(--line); background: #fbfaf7; }
+      .mock-logo { display: inline-flex; align-items: center; gap: 7px; font-family: "Outfit",sans-serif; font-weight: 600; font-size: 1.12em; color: var(--ink); letter-spacing: -.01em; white-space: nowrap; }
+      .mock-logo svg { width: 1.45em; height: 1.45em; }
+      .mock-crumb { color: var(--muted); white-space: nowrap; }
+      .mock-nav { display: flex; gap: clamp(10px,1.1vw,18px); color: var(--muted); white-space: nowrap; }
+      .mock-nav .on { color: var(--ink); font-weight: 500; box-shadow: inset 0 -2px 0 var(--accent); padding-bottom: 3px; }
+      .mock-user { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+      .avatar { width: 1.9em; height: 1.9em; border-radius: 50%; background: var(--teal-soft); color: var(--teal-ink); display: grid; place-items: center; font-family: "Outfit",sans-serif; font-weight: 600; font-size: .86em; }
+      .proto-tag {
+        margin-left: auto; font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(9px,.7vw,11px);
+        letter-spacing: .12em; text-transform: uppercase; color: var(--accent-ink);
+        border: 1px dashed var(--accent); border-radius: 999px; padding: 3px 10px; white-space: nowrap;
+      }
+      .mock-h { display: block; font-family: "Outfit",sans-serif; font-weight: 500; font-size: 1.4em; color: var(--ink); letter-spacing: -.01em; line-height: 1.2; }
+      .mock-sub { display: block; color: var(--muted); margin-top: 2px; }
+      .mock-note { font-size: .88em; color: var(--muted); }
+      .mock-title { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+
+      /* Livro-caixa */
+      .ledger { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+      .ledger th { text-align: left; font-family: "Outfit",sans-serif; font-weight: 500; font-size: .82em; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; border-bottom: 1px solid var(--line); }
+      .ledger td { padding: clamp(7px,1.05vh,11px) 14px; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.35; }
+      .ledger td:first-child { color: var(--muted); white-space: nowrap; }
+      .ledger td small { display: block; font-size: .86em; color: var(--accent-ink); margin-top: 2px; }
+      .ledger .num { text-align: right; white-space: nowrap; }
+      .ledger tr.found td { background: rgba(245,130,32,.05); }
+      .ledger tfoot td { border-bottom: none; font-family: "Outfit",sans-serif; font-weight: 600; color: var(--ink); font-size: 1.08em; padding-top: 12px; padding-bottom: 12px; }
+      .cat { display: inline-block; padding: 2px 8px; border-radius: 4px; background: #efeee8; color: var(--ink-2); font-size: .9em; white-space: nowrap; }
+      .cat.hot { background: #fdebd9; color: var(--accent-ink); }
+
+      /* ---------- O Gerente ---------- */
+      .og-head { display: flex; align-items: center; gap: clamp(16px,1.8vw,28px); }
+      .og-big { width: clamp(56px,6vw,96px); height: clamp(56px,6vw,96px); flex-shrink: 0; }
+      .og-head .lead { margin-top: 6px; }
+
+      /* ---------- Funcionalidades ---------- */
+      .feat-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(24px,3vw,48px); }
+      .feat-col { display: flex; flex-direction: column; }
+      .feat-col > .label { padding-bottom: 8px; border-bottom: 1px solid var(--ink); }
+      .feat-col .feat-item { padding: clamp(9px,1.35vh,15px) 0; }
+      .feat-ex { font-size: clamp(12px,min(.95vw,1.6vh),15px); color: var(--teal-ink); line-height: 1.45; margin-top: 3px; }
+      .next-card {
+        display: flex; align-items: baseline; gap: clamp(14px,1.6vw,26px); flex-wrap: wrap;
+        padding: clamp(12px,1.7vh,18px) clamp(16px,1.6vw,24px);
+        border: 1px dashed var(--line-strong); border-radius: var(--radius);
+      }
+      .next-txt { font-size: clamp(13px,min(1.02vw,1.7vh),17px); color: var(--muted); }
+      .next-txt strong { color: var(--ink); font-weight: 600; }
+
+      /* ---------- Painel (dashboard) ---------- */
+      .l-mock { gap: clamp(10px,1.6vh,18px); }
+      .dash-body { padding: clamp(12px,1.7vh,20px) clamp(14px,1.4vw,22px); display: flex; flex-direction: column; gap: clamp(10px,1.5vh,16px); }
+      .dash-head { display: flex; align-items: flex-start; gap: 16px; }
+      .kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(8px,.9vw,14px); }
+      .kpi { display: flex; flex-direction: column; gap: 3px; padding: clamp(10px,1.4vh,14px) clamp(12px,1.1vw,16px); border: 1px solid var(--line); border-radius: 10px; }
+      .kpi-l { font-family: "Outfit",sans-serif; font-weight: 500; font-size: .82em; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+      .kpi-v { font-family: "Outfit",sans-serif; font-weight: 300; font-size: clamp(22px,min(2.3vw,3.8vh),38px); line-height: 1.05; letter-spacing: -.02em; color: var(--ink); font-variant-numeric: tabular-nums; }
+      .kpi-s { color: var(--muted); font-size: .92em; }
+      .kpi.good { background: var(--teal-soft); border-color: rgba(0,140,126,.25); }
+      .kpi.good .kpi-v { color: var(--teal-ink); }
+      .dash-grid { display: grid; grid-template-columns: 1.45fr 1fr .95fr; gap: clamp(8px,.9vw,14px); }
+      .panel { border: 1px solid var(--line); border-radius: 10px; padding: clamp(10px,1.4vh,14px) clamp(12px,1.1vw,16px); display: flex; flex-direction: column; gap: 10px; }
+      .panel-h { font-family: "Outfit",sans-serif; font-weight: 500; color: var(--ink); font-size: 1.05em; }
+      .panel-h small { font-weight: 400; color: var(--muted); font-size: .85em; margin-left: 4px; }
+      .cbars { display: flex; flex-direction: column; gap: clamp(6px,.9vh,9px); }
+      .cbar { display: grid; grid-template-columns: 10.5em 1fr 6.2em; gap: 10px; align-items: center; }
+      .cbar span { white-space: nowrap; }
+      .cbar i { display: block; height: .62em; border-radius: 4px; background: #f1f0ea; position: relative; overflow: hidden; }
+      .cbar i::after { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--w); background: var(--ink-2); border-radius: 4px; }
+      .cbar.hot i::after { background: var(--accent); }
+      .cbar.hot span { color: var(--accent-ink); font-weight: 500; }
+      .cbar b { font-weight: 500; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .hcols { flex: 1; display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; align-items: end; min-height: clamp(96px,15vh,160px); }
+      .hcol { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 5px; }
+      .hcol i { display: block; width: 100%; max-width: 44px; height: calc(var(--h) * .72); border-radius: 5px 5px 2px 2px; background: var(--teal); }
+      .hcol b { font-weight: 500; font-size: .92em; font-variant-numeric: tabular-nums; }
+      .hcol span { color: var(--muted); font-family: "Outfit",sans-serif; font-weight: 500; }
+      .alerts { display: flex; flex-direction: column; gap: 8px; }
+      .alert-item { display: grid; grid-template-columns: 1.4em 1fr; gap: 8px; align-items: start; padding: 9px 10px; border-radius: 8px; background: #f5f4ef; color: var(--ink-2); line-height: 1.35; }
+      .alert-item svg { width: 1.3em; height: 1.3em; color: var(--muted); }
+      .alert-item strong { display: block; font-weight: 600; color: var(--ink); }
+      .alert-item.warn { background: #fdebd9; }
+      .alert-item.warn svg { color: var(--accent-ink); }
+
+      /* ---------- Regra de negócio (formulário) ---------- */
+      .l-rule { grid-template-columns: .85fr 1.15fr; }
+      .rule-note { display: flex; flex-direction: column; gap: 8px; padding-top: clamp(12px,1.8vh,18px); border-top: 1px solid var(--ink); }
+      .rule-note p:not(.body) { font-family: "Outfit",sans-serif; font-weight: 300; font-size: clamp(18px,min(1.8vw,3vh),28px); line-height: 1.25; letter-spacing: -.01em; color: var(--ink); }
+      .rule-note strong { font-weight: 500; color: var(--accent-ink); }
+      .form-body { padding: clamp(14px,2vh,22px) clamp(16px,1.5vw,24px); display: flex; flex-direction: column; gap: clamp(12px,1.7vh,18px); }
+      .form-h { display: flex; align-items: center; gap: 12px; }
+      .fields { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px,1.4vh,14px) clamp(12px,1.2vw,18px); }
+      .field { display: flex; flex-direction: column; gap: 5px; }
+      .f-lbl { font-size: .86em; font-weight: 500; color: var(--muted); }
+      .input { display: flex; align-items: baseline; gap: 6px; padding: .6em .8em; border: 1px solid var(--line-strong); border-radius: 8px; background: #fff; color: var(--ink); transition: border-color 300ms var(--ease), box-shadow 300ms var(--ease); }
+      .input em { font-style: normal; color: var(--muted); margin-left: auto; }
+      .input.muted { color: var(--muted); }
+      .f-hint { font-size: .86em; color: var(--muted); transition: color 300ms var(--ease); }
+      .l-rule[data-at="1"] .field.qty .input { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(217,65,43,.14); }
+      .l-rule[data-at="1"] .field.qty .f-hint { color: #9b2c1c; font-weight: 600; }
+      .mock-alert { display: grid; grid-template-columns: 1.4em 1fr; gap: 10px; align-items: start; padding: 11px 13px; border-radius: 10px; background: #fdecea; border: 1px solid #f3c1b8; color: #7d1f10; line-height: 1.45; }
+      .mock-alert svg { width: 1.35em; height: 1.35em; color: var(--danger); }
+      .mock-alert strong { color: #7d1f10; }
+      .form-actions { display: flex; justify-content: flex-end; gap: 8px; }
+      .mbtn { font-family: "Outfit",sans-serif; font-weight: 500; letter-spacing: .04em; padding: .65em 1.2em; border-radius: 8px; border: 1px solid var(--line-strong); color: var(--ink); transition: transform 200ms var(--ease), background 200ms var(--ease), box-shadow 200ms var(--ease); }
+      .mbtn.primary { background: var(--accent); border-color: var(--accent); color: var(--ink); }
+      .l-rule[data-at="1"] .mbtn.primary { transform: scale(.97); background: #e0721a; box-shadow: inset 0 2px 4px rgba(10,10,10,.18); }
+
+      /* ---------- UML ---------- */
+      .l-uml { grid-template-columns: .72fr 1.28fr; }
+      .uml-fig svg { width: 100%; height: auto; display: block; max-height: 64vh; }
+      .uc-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+      .uc-item { display: flex; flex-direction: column; gap: 2px; padding: clamp(9px,1.35vh,14px) 0; border-bottom: 1px solid var(--line); }
+      .uc-name { font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(14px,min(1.15vw,1.9vh),18px); color: var(--ink); }
+      .uc-txt { font-size: clamp(12px,min(.95vw,1.6vh),15px); color: var(--muted); line-height: 1.45; }
+      .uc-item.key .uc-name { color: var(--accent-ink); }
+      .uc-item.key strong { color: var(--ink); font-weight: 600; }
+      .u-bound { fill: rgba(255,255,255,.6); stroke: #d4d2c9; }
+      .u-sys { font-family: "Outfit",sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; fill: #5f5f5a; }
+      .u-actor { fill: none; stroke: #0a0a0a; stroke-width: 1.6; stroke-linecap: round; }
+      .u-head { fill: #fff; stroke: #0a0a0a; stroke-width: 1.6; }
+      .u-aname { font-family: "Outfit",sans-serif; font-size: 13.5px; font-weight: 500; fill: #0a0a0a; }
+      .u-assoc { stroke: #6b6b66; stroke-width: 1.2; }
+      .u-case { fill: #fff; stroke: #0a0a0a; stroke-width: 1.2; }
+      .u-case.hot { fill: rgba(245,130,32,.10); stroke: #f58220; stroke-width: 1.5; }
+      .u-cname { font-family: "Inter",sans-serif; font-size: 13px; fill: #1c1c1c; }
+      .u-inc { stroke: #a8520a; stroke-width: 1.3; stroke-dasharray: 5 4; fill: none; }
+      .u-inc-h { fill: none; stroke: #a8520a; stroke-width: 1.3; }
+      .u-inc-t { font-family: "Inter",sans-serif; font-size: 11.5px; fill: #a8520a; }
+
+      .l-classes { gap: clamp(8px,1.4vh,16px); }
+      .l-classes .uml-fig svg { max-height: 60vh; margin: 0 auto; }
+      .cls-note { font-size: clamp(13px,min(1.02vw,1.7vh),17px); color: var(--muted); }
+      .cls-note strong { color: var(--accent-ink); font-weight: 600; }
+      .c-box { fill: #fff; stroke: #d4d2c9; stroke-width: 1.2; }
+      .c-head { fill: #f3f2ec; }
+      .c-outline { fill: none; }
+      .c-sep { stroke: #d4d2c9; stroke-width: 1.2; }
+      .c-name { font-family: "Outfit",sans-serif; font-size: 15px; font-weight: 600; fill: #0a0a0a; }
+      .c-attr { font-family: "Inter",sans-serif; font-size: 12.5px; fill: #1c1c1c; }
+      .c-attr.key { fill: #a8520a; font-weight: 600; }
+      .c-hot .c-box { stroke: #f58220; stroke-width: 1.8; }
+      .c-hot .c-head { fill: rgba(245,130,32,.14); }
+      .c-link { fill: none; stroke: #6b6b66; stroke-width: 1.3; }
+      .c-mult { font-family: "Outfit",sans-serif; font-size: 13px; font-weight: 500; fill: #5f5f5a; }
+      .c-role { font-family: "Inter",sans-serif; font-size: 11.5px; font-style: italic; fill: #5f5f5a; }
+
+      /* ---------- Arquitetura + sequência ---------- */
+      .l-seq { grid-template-columns: .56fr 1.44fr; gap: clamp(24px,3vw,48px); }
+      .l-seq .title-section { font-size: clamp(20px,min(2.2vw,3.6vh),34px); }
+      .layers { position: relative; display: flex; flex-direction: column; gap: 6px; padding: clamp(26px,3.6vh,34px) clamp(12px,1.1vw,16px) clamp(12px,1.6vh,16px); border: 1px dashed var(--line-strong); border-radius: var(--radius); }
+      .layers-tag { position: absolute; top: 9px; left: 14px; font-family: "Outfit",sans-serif; font-size: clamp(9px,.72vw,11px); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+      .ly { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: clamp(7px,1vh,10px) 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); transition: border-color 320ms var(--ease), background 320ms var(--ease), box-shadow 320ms var(--ease); }
+      .ly-n { font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(13px,min(1.05vw,1.75vh),16px); color: var(--ink); }
+      .ly-d { font-size: clamp(11px,min(.82vw,1.35vh),13px); color: var(--muted); text-align: right; }
+      .ly-link { text-align: center; font-family: "Outfit",sans-serif; font-size: clamp(10px,.78vw,12px); font-weight: 600; letter-spacing: .1em; color: var(--accent-ink); }
+      .ly-group { display: flex; flex-direction: column; gap: 5px; padding: 10px; border-radius: 10px; background: var(--ink); }
+      .ly-gn { font-family: "Outfit",sans-serif; font-size: clamp(10px,.78vw,12px); font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #9a988f; padding: 0 2px 2px; }
+      .ly-group .ly { background: transparent; border-color: #3a3a38; }
+      .ly-group .ly-n { color: #f7f6f2; }
+      .ly-group .ly-d { color: #9a988f; }
+      .ly.db { background: var(--teal-soft); border-color: rgba(0,140,126,.4); }
+      .l-seq[data-at="1"] [data-ly="front"], .l-seq[data-at="1"] [data-ly="ctrl"],
+      .l-seq[data-at="2"] [data-ly="ctrl"], .l-seq[data-at="2"] [data-ly="svc"],
+      .l-seq[data-at="3"] [data-ly="svc"], .l-seq[data-at="3"] [data-ly="repo"], .l-seq[data-at="3"] [data-ly="db"],
+      .l-seq[data-at="4"] [data-ly="svc"],
+      .l-seq[data-at="5"] [data-ly="ctrl"], .l-seq[data-at="5"] [data-ly="front"] {
+        border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent);
+      }
+      .l-seq[data-at="1"] [data-ly="front"], .l-seq[data-at="5"] [data-ly="front"], .l-seq[data-at="3"] [data-ly="db"] { background: var(--accent-soft); }
+      .l-seq .stack-tags { margin-top: 2px; }
+      .s-box { fill: #fff; stroke: #d4d2c9; stroke-width: 1.2; }
+      .s-name { font-family: "Outfit",sans-serif; font-size: 12.5px; font-weight: 600; fill: #0a0a0a; }
+      .s-sub { font-family: "Inter",sans-serif; font-size: 11px; fill: #5f5f5a; }
+      .s-life { stroke: #b9b7ae; stroke-width: 1; stroke-dasharray: 4 5; }
+      .m-line { stroke: #0a0a0a; stroke-width: 1.4; transform: scaleX(0); transition: transform 560ms var(--ease-out); }
+      .m-line.r { stroke-dasharray: 5 4; stroke: #5f5f5a; }
+      .m-head { fill: #0a0a0a; }
+      .m-head.r { fill: none; stroke: #5f5f5a; stroke-width: 1.4; }
+      .m-lbl { font-family: "Inter",sans-serif; font-size: 12.5px; fill: #1c1c1c; paint-order: stroke; stroke: #f7f6f2; stroke-width: 5px; stroke-linejoin: round; }
+      .hot .m-line { stroke: #d9412b; }
+      .hot .m-head.r { stroke: #d9412b; }
+      .hot .m-lbl { fill: #9b2c1c; font-weight: 600; }
+      .m-head, .m-lbl { opacity: 0; transition: opacity 260ms var(--ease); }
+      .msg.on .m-line { transform: scaleX(1); transition-delay: var(--d,0ms); }
+      .msg.on .m-head, .msg.on .m-lbl { opacity: 1; transition-delay: calc(var(--d,0ms) + 440ms); }
+      .s-alt { fill: rgba(217,65,43,.04); stroke: #d9412b; stroke-width: 1.2; }
+      .s-alt-tab { fill: #fdecea; stroke: #d9412b; stroke-width: 1.2; }
+      .s-alt-t { font-family: "Outfit",sans-serif; font-size: 12px; font-weight: 600; fill: #9b2c1c; }
+      .s-guard { font-family: "Inter",sans-serif; font-size: 12px; fill: #9b2c1c; }
+
       /* Closing */
       .has-dotgrid { background-image: radial-gradient(circle,rgba(10,10,10,.09) 1.5px,transparent 1.5px); background-size: 30px 30px; }
 
       /* Responsive */
       @media (max-width:860px) {
-        .l-split, .l-split.wide-right, .grid-2, .members-grid, .goal-list, .feat, .views { grid-template-columns: 1fr; }
+        .l-split, .l-split.wide-right, .grid-2, .members-grid, .goal-list, .feat, .views,
+        .l-story, .l-rule, .l-uml, .l-seq, .ba, .feat-groups, .dash-grid, .kpis, .people, .fields { grid-template-columns: 1fr; }
+        .ba-arrow { transform: rotate(90deg); justify-self: center; padding-top: 0; }
+        .mock-nav { display: none; }
         .pain-row, .facts { grid-template-columns: 1fr 1fr; }
         .l-cover .meta { grid-template-columns: 1fr; }
         .sim-scene { flex-direction: column; }
@@ -545,7 +826,7 @@
               <div class="member-card">
                 <span class="member-part">Parte 1 · O projeto</span>
                 <div class="member-name">Lucas Mendes</div>
-                <div class="member-topics">O problema · Finalidade e objetivos · Funcionalidades · Usuários e arquitetura</div>
+                <div class="member-topics">O Seu Ricardo · O problema · Objetivos · Funcionalidades · Protótipos · UML e arquitetura</div>
               </div>
               <div class="member-card">
                 <span class="member-part">Parte 2 · O planejamento</span>
@@ -565,156 +846,395 @@
               <div class="t-name">Lucas<br>Mendes</div>
               <div class="t-accent"></div>
             </div>
-            <p class="t-topics">O problema · Finalidade e objetivos · Funcionalidades · Usuários e arquitetura</p>
+            <p class="t-topics">O Seu Ricardo · O problema · Objetivos · Funcionalidades · Protótipos · UML e arquitetura</p>
           </div>
         </article>
 
-        <!-- 03 O problema -->
-        <article class="slide" data-slide="3" data-speaker="Lucas Mendes" data-topic="O problema">
-          <div class="slide-inner l-statement">
-            <h2 class="display-md">A gestão do pomar ainda vive no caderno e na planilha.</h2>
-            <p class="lead">Pequenos e médios citricultores precisam acompanhar talhões, aplicações de defensivos, estoque de insumos, colheitas e custos — normalmente em anotações soltas, sem visão do todo.</p>
-            <div class="pain-row">
-              <div class="pain">
-                <span class="pain-title">Informação espalhada</span>
-                <span class="pain-txt">Dados de cada talhão em lugares diferentes, difíceis de consultar.</span>
+        <!-- ============ Parte 1 · Lucas — história do Seu Ricardo ============ -->
+        <!-- Marca "O Gerente" (reutilizada nos protótipos) -->
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+          <symbol id="og-mark" viewBox="0 0 24 24">
+            <circle cx="12" cy="14" r="8.5" fill="#f58220"/>
+            <path d="M12.6 6.2c.3-2.7 2.5-4.2 5.4-4-.3 2.8-2.4 4.3-5.4 4z" fill="#008c7e"/>
+            <path d="M12 5.2v3" stroke="#0a0a0a" stroke-width="1.3" stroke-linecap="round"/>
+          </symbol>
+        </svg>
+
+        <!-- 04 Conheça o Seu Ricardo -->
+        <article class="slide" data-slide="3" data-speaker="Lucas Mendes" data-topic="Conheça o Seu Ricardo">
+          <div class="slide-inner l-split l-story">
+            <div class="split-content">
+              <h2 class="display-md">Este é o Seu Ricardo. Na família, ele é <span class="hl">o Gerente</span>.</h2>
+              <p class="lead">Citricultor em Urânia, no noroeste paulista. É um entre tantos pequenos e médios produtores de laranja, e vai ser o nosso exemplo.</p>
+              <div class="story-facts" data-step="1">
+                <div class="sfact"><span class="sfact-v">Urânia-SP</span><span class="sfact-l">noroeste paulista</span></div>
+                <div class="sfact"><span class="sfact-v">12 alqueires</span><span class="sfact-l">cerca de 29 hectares</span></div>
+                <div class="sfact"><span class="sfact-v">Só laranja</span><span class="sfact-l">dividida em 4 talhões</span></div>
+                <div class="sfact"><span class="sfact-v">Venda no pé</span><span class="sfact-l">quem compra vem colher</span></div>
               </div>
-              <div class="pain">
+              <div class="people" data-step="2">
+                <div class="person"><span class="person-name">Seu Ricardo</span><span class="person-role">Produtor · dono do sítio, decide e paga as contas</span></div>
+                <div class="person"><span class="person-name">Luciano</span><span class="person-role">Funcionário · cuida do pomar no dia a dia</span></div>
+                <div class="person"><span class="person-name">Carla*</span><span class="person-role">Resp. técnica · agrônoma que orienta as aplicações</span></div>
+                <div class="person"><span class="person-name">Diaristas</span><span class="person-role">Ajudam na colheita e em alguns serviços</span></div>
+              </div>
+              <p class="footnote" data-step="2">História real · * nome, talhões e valores são ilustrativos</p>
+            </div>
+            <figure class="farm">
+              <svg viewBox="0 0 560 462" role="img" aria-label="Mapa ilustrativo do sítio visto de cima: estrada ao norte, sede, quatro talhões de laranja e um córrego ao sul.">
+                <rect class="f-road" x="0" y="12" width="560" height="26" rx="4"/>
+                <line class="f-road-mid" x1="8" y1="25" x2="470" y2="25"/>
+                <text class="f-cap" x="550" y="29" text-anchor="end">ESTRADA</text>
+                <line class="f-path" x1="62" y1="38" x2="62" y2="92"/>
+                <rect class="f-ground" x="20" y="54" width="520" height="340" rx="12"/>
+                <rect class="f-bound" data-step="1" x="12" y="46" width="536" height="356" rx="18"/>
+
+                <path class="f-roof" d="M40 111 L62 92 L84 111 Z"/>
+                <rect class="f-house" x="45" y="110" width="34" height="24" rx="2"/>
+                <rect class="f-door" x="57" y="119" width="10" height="15"/>
+                <text class="f-cap" x="62" y="154" text-anchor="middle">SEDE</text>
+
+                <rect class="f-plot" x="100" y="72" width="200" height="146" rx="8"/>
+                <g class="orchard" data-x="100" data-y="72" data-w="200" data-h="146"></g>
+                <rect class="f-plot" x="316" y="72" width="206" height="146" rx="8"/>
+                <g class="orchard" data-x="316" data-y="72" data-w="206" data-h="146"></g>
+                <rect class="f-plot" x="38" y="234" width="262" height="144" rx="8"/>
+                <g class="orchard" data-x="38" data-y="234" data-w="262" data-h="144"></g>
+                <rect class="f-plot" x="316" y="234" width="206" height="144" rx="8"/>
+                <g class="orchard" data-x="316" data-y="234" data-w="206" data-h="144"></g>
+
+                <rect class="f-pill" x="108" y="80" width="84" height="22" rx="11"/><text class="f-pill-t" x="150" y="95" text-anchor="middle">T1 · Sede</text>
+                <rect class="f-pill" x="324" y="80" width="96" height="22" rx="11"/><text class="f-pill-t" x="372" y="95" text-anchor="middle">T3 · Estrada</text>
+                <rect class="f-pill" x="46" y="242" width="100" height="22" rx="11"/><text class="f-pill-t" x="96" y="257" text-anchor="middle">T2 · Córrego</text>
+                <rect class="f-pill" x="324" y="242" width="84" height="22" rx="11"/><text class="f-pill-t" x="366" y="257" text-anchor="middle">T4 · Fundo</text>
+
+                <path class="f-creek" d="M0 430 C 90 410, 170 452, 280 432 S 460 414, 560 440"/>
+                <text class="f-cap" x="20" y="458">CÓRREGO</text>
+
+                <g data-step="1">
+                  <rect class="f-area" x="378" y="384" width="156" height="30" rx="15"/>
+                  <text class="f-area-t" x="456" y="404" text-anchor="middle">12 alqueires ≈ 29 ha</text>
+                </g>
+              </svg>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 05 O problema -->
+        <article class="slide" data-slide="4" data-speaker="Lucas Mendes" data-topic="O problema">
+          <div class="slide-inner l-statement">
+            <h2 class="display-md">A gestão do sítio ainda vive no caderno.</h2>
+            <p class="lead">Pequenos e médios citricultores, como o Seu Ricardo, precisam acompanhar talhões, defensivos, estoque, colheita e custos, quase sempre em anotações soltas, sem visão do todo.</p>
+            <div class="pain-row">
+              <div class="pain" data-step="1">
+                <span class="pill warn">Relato real</span>
+                <span class="pain-title">Gastos que escapam</span>
+                <span class="pain-txt">Despesas anotadas no papel, e muitas nem chegam a ser anotadas.</span>
+                <span class="pain-ex">“O diesel da semana e a peça do trator que quebrou nunca entram no caderno.”</span>
+              </div>
+              <div class="pain" data-step="2">
+                <span class="pill warn">Relato real</span>
+                <span class="pain-title">Faturamento incerto</span>
+                <span class="pain-txt">Sem somar o que foi colhido e o preço de cada carga, a safra fecha no escuro.</span>
+                <span class="pain-ex">“No fim da safra, quanto sobrou? Ninguém sabe ao certo.”</span>
+              </div>
+              <div class="pain" data-step="3">
+                <span class="pill neutral">Exemplo</span>
                 <span class="pain-title">Estoque sem controle</span>
                 <span class="pain-txt">Insumos acabam sem aviso ou são comprados em excesso.</span>
+                <span class="pain-ex">“Compraram adubo de novo porque ninguém lembrava que ainda tinha no galpão.”</span>
               </div>
-              <div class="pain">
+              <div class="pain" data-step="4">
+                <span class="pill neutral">Exemplo</span>
                 <span class="pain-title">Aplicações sem histórico</span>
                 <span class="pain-txt">Pouca rastreabilidade de defensivos e ocorrências fitossanitárias.</span>
-              </div>
-              <div class="pain">
-                <span class="pain-title">Custo desconhecido</span>
-                <span class="pain-txt">Difícil saber quanto custou produzir e quanto rendeu cada safra.</span>
+                <span class="pain-ex">“Qual talhão recebeu fungicida? E quando foi mesmo?”</span>
               </div>
             </div>
           </div>
         </article>
 
-        <!-- 04 Finalidade e objetivos -->
-        <article class="slide" data-slide="4" data-speaker="Lucas Mendes" data-topic="Finalidade e objetivos">
+        <!-- 06 Antes × depois -->
+        <article class="slide" data-slide="5" data-speaker="Lucas Mendes" data-topic="Antes × depois">
+          <div class="slide-inner l-compare">
+            <h2 class="title-section">Do caderno para o sistema</h2>
+            <div class="ba">
+              <div class="ba-col">
+                <span class="label">Antes · caderno do sítio</span>
+                <div class="notebook" role="img" aria-label="Página de caderno com gastos rabiscados, valores faltando e um lembrete de boleto.">
+                  <div class="nb-line nb-date">outubro</div>
+                  <div class="nb-line">20 sc adubo ....... 3.400</div>
+                  <div class="nb-line"><s>veneno 2.1??</s> fungicida 20 L — 2.140</div>
+                  <div class="nb-line">diesel <span class="nb-q">???</span></div>
+                  <div class="nb-line">peça do trator — ver nota <span class="nb-q">(cadê?)</span></div>
+                  <div class="nb-line">5 peões colheita — 750?</div>
+                  <div class="nb-line nb-q">total = ???</div>
+                  <div class="nb-sticky">pagar boleto<br>dia 1? ou 10?</div>
+                </div>
+              </div>
+              <div class="ba-arrow" data-step="1" aria-hidden="true">
+                <svg viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
+              </div>
+              <div class="ba-col" data-step="1">
+                <span class="label">Depois · O Gerente</span>
+                <div class="mock">
+                  <div class="mock-bar">
+                    <span class="mock-logo"><svg aria-hidden="true"><use href="#og-mark"/></svg>O Gerente</span>
+                    <span class="mock-crumb">Custos · outubro/2026</span>
+                    <span class="proto-tag">Protótipo ilustrativo</span>
+                  </div>
+                  <table class="ledger">
+                    <thead><tr><th>Data</th><th>Lançamento</th><th>Categoria</th><th class="num">Valor</th></tr></thead>
+                    <tbody>
+                      <tr><td>02/10</td><td>Adubo NPK · 20 sacos</td><td><span class="cat">Adubos e insumos</span></td><td class="num">R$ 3.400,00</td></tr>
+                      <tr><td>05/10</td><td>Fungicida cúprico · 20 L</td><td><span class="cat">Defensivos</span></td><td class="num">R$ 2.140,00</td></tr>
+                      <tr class="found"><td>08/10</td><td>Diesel · 180 L<small>antes não era anotado</small></td><td><span class="cat hot">Diesel</span></td><td class="num">R$ 1.116,00</td></tr>
+                      <tr class="found"><td>11/10</td><td>Peça do trator · rolamento<small>antes não era anotado</small></td><td><span class="cat hot">Manutenção</span></td><td class="num">R$ 890,00</td></tr>
+                      <tr><td>18/10</td><td>Diárias de colheita · 5 × R$ 150</td><td><span class="cat">Mão de obra</span></td><td class="num">R$ 750,00</td></tr>
+                    </tbody>
+                    <tfoot><tr><td colspan="3">Total do mês</td><td class="num">R$ 8.296,00</td></tr></tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <p class="lead" data-step="1">A mesma informação, agora com categoria, valor e total.</p>
+          </div>
+        </article>
+
+        <!-- 07 O Gerente: finalidade e objetivos -->
+        <article class="slide" data-slide="6" data-speaker="Lucas Mendes" data-topic="Finalidade e objetivos">
           <div class="slide-inner l-statement">
-            <h2 class="title-section">Finalidade e objetivos</h2>
+            <div class="og-head">
+              <svg class="og-big" aria-hidden="true"><use href="#og-mark"/></svg>
+              <div>
+                <h2 class="display-md">O Gerente</h2>
+                <p class="lead">O sistema leva o apelido do Seu Ricardo, mas foi pensado para qualquer pequeno ou médio citricultor.</p>
+              </div>
+            </div>
             <div class="purpose">
               <span class="label">Finalidade</span>
               <span class="compare-value">Centralizar a gestão da propriedade citrícola em um sistema web simples, do plantio à colheita.</span>
             </div>
             <ol class="goal-list">
-              <li><span>Organizar <strong>propriedades, talhões e culturas</strong> em um só lugar</span></li>
-              <li><span>Registrar <strong>atividades agrícolas</strong> com data, local e responsável</span></li>
-              <li><span>Controlar o <strong>estoque de insumos</strong> com validação de saldo</span></li>
-              <li><span>Rastrear <strong>aplicações e ocorrências fitossanitárias</strong></span></li>
-              <li><span>Acompanhar <strong>colheitas e custos</strong> de produção</span></li>
-              <li><span>Apoiar decisões com <strong>dashboard e relatórios</strong></span></li>
+              <li data-step="1"><span>Organizar <strong>propriedades, talhões e culturas</strong> em um só lugar</span></li>
+              <li data-step="1"><span>Registrar <strong>atividades agrícolas</strong> com data, local e responsável</span></li>
+              <li data-step="2"><span>Controlar o <strong>estoque de insumos</strong> com validação de saldo</span></li>
+              <li data-step="2"><span>Rastrear <strong>aplicações e ocorrências fitossanitárias</strong></span></li>
+              <li data-step="3"><span>Acompanhar <strong>custos (diesel, manutenção e diárias incluídos) e o faturamento</strong> de cada safra</span></li>
+              <li data-step="3"><span>Apoiar decisões com <strong>dashboard e relatórios</strong></span></li>
             </ol>
           </div>
         </article>
 
-        <!-- 05 Funcionalidades -->
-        <article class="slide" data-slide="5" data-speaker="Lucas Mendes" data-topic="Funcionalidades">
+        <!-- 08 Funcionalidades -->
+        <article class="slide" data-slide="7" data-speaker="Lucas Mendes" data-topic="Funcionalidades">
           <div class="slide-inner l-statement">
             <h2 class="title-section">Principais funcionalidades</h2>
-            <div class="feat">
-              <div class="feat-item">
-                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg></span>
-                <div><div class="feat-name">Propriedades e talhões</div><div class="feat-txt">Cadastro da fazenda dividida em talhões, com endpoints REST próprios.</div></div>
+            <div class="feat-groups">
+              <div class="feat-col" data-step="1">
+                <span class="label">No campo</span>
+                <div class="feat-item">
+                  <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg></span>
+                  <div><div class="feat-name">Propriedades e talhões</div><div class="feat-txt">Cadastro da fazenda dividida em talhões.</div><div class="feat-ex">Os 4 talhões do sítio, com área e variedade.</div></div>
+                </div>
+                <div class="feat-item">
+                  <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><path d="M12 6c0-2 1.5-3 3.5-3-.2 2-1.5 3-3.5 3z"/><path d="M12 10v6M9 13h6"/></svg></span>
+                  <div><div class="feat-name">Culturas e atividades agrícolas</div><div class="feat-txt">Atividades de campo com data, talhão e responsável.</div><div class="feat-ex">Luciano registra a adubação do Talhão 2.</div></div>
+                </div>
+                <div class="feat-item">
+                  <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5v10l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v10"/></svg></span>
+                  <div><div class="feat-name">Estoque e insumos</div><div class="feat-txt">Entradas, saídas e validação de saldo antes de cada uso.</div><div class="feat-ex">Entrada de 20 sacos de adubo no galpão.</div></div>
+                </div>
+                <div class="feat-item">
+                  <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14.5l2 2 3.5-4"/></svg></span>
+                  <div><div class="feat-name">Aplicações e ocorrências fitossanitárias</div><div class="feat-txt">Histórico de defensivos, pragas e doenças por talhão.</div><div class="feat-ex">Carla registra o greening encontrado no Talhão 3.</div></div>
+                </div>
               </div>
-              <div class="feat-item">
-                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><path d="M12 6c0-2 1.5-3 3.5-3-.2 2-1.5 3-3.5 3z"/><path d="M12 10v6M9 13h6"/></svg></span>
-                <div><div class="feat-name">Culturas e atividades agrícolas</div><div class="feat-txt">Registro das atividades de campo — as regras centrais do domínio.</div></div>
+              <div class="feat-col" data-step="2">
+                <span class="label">Na gestão</span>
+                <div class="feat-item">
+                  <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M6 20V11M11 20V6M16 20v-6"/><path d="M19 4l-3 3"/></svg></span>
+                  <div><div class="feat-name">Colheitas e custos</div><div class="feat-txt">Produção colhida e todas as despesas da safra.</div><div class="feat-ex">Diesel, peças e diárias lançados na safra.</div></div>
+                </div>
+                <div class="feat-item">
+                  <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></span>
+                  <div><div class="feat-name">Dashboard e relatórios</div><div class="feat-txt">Visão consolidada da propriedade para apoiar decisões.</div><div class="feat-ex">Quanto a safra rendeu e quanto sobrou.</div></div>
+                </div>
+                <div class="feat-item">
+                  <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+                  <div><div class="feat-name">Autenticação e perfis de acesso</div><div class="feat-txt">Login e permissões diferentes para cada tipo de usuário.</div><div class="feat-ex">Cada um vê só o que precisa.</div></div>
+                </div>
+                <div class="feat-item">
+                  <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6M10 4v5l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V4"/><path d="M7.5 15h9"/></svg></span>
+                  <div><div class="feat-name">Regras de negócio</div><div class="feat-txt">Validações de estoque, talhões e permissões no backend.</div><div class="feat-ex">Não deixa aplicar o que não tem em estoque.</div></div>
+                </div>
               </div>
-              <div class="feat-item">
-                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5v10l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v10"/></svg></span>
-                <div><div class="feat-name">Estoque e insumos</div><div class="feat-txt">Entradas, saídas e validação de saldo antes de cada uso.</div></div>
+            </div>
+            <div class="next-card" data-step="3">
+              <span class="label">Próximo passo · fora deste escopo</span>
+              <span class="next-txt"><strong>Aviso de vencimento de boletos.</strong> Uma dor real do Seu Ricardo, registrada para uma próxima versão.</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 09 Protótipo: dashboard -->
+        <article class="slide" data-slide="8" data-speaker="Lucas Mendes" data-topic="Protótipo: painel">
+          <div class="slide-inner l-statement l-mock">
+            <div class="mock-title">
+              <h2 class="title-section">O que o produtor vê ao abrir o sistema</h2>
+              <p class="body">Painel da safra, com os números do sítio do Seu Ricardo.</p>
+            </div>
+            <div class="mock dash">
+              <div class="mock-bar">
+                <span class="mock-logo"><svg aria-hidden="true"><use href="#og-mark"/></svg>O Gerente</span>
+                <nav class="mock-nav" aria-label="Menu do protótipo"><span class="on">Painel</span><span>Talhões</span><span>Estoque</span><span>Aplicações</span><span>Colheitas</span><span>Custos</span></nav>
+                <span class="mock-user"><span class="avatar">R</span>Ricardo · Produtor</span>
               </div>
-              <div class="feat-item">
-                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14.5l2 2 3.5-4"/></svg></span>
-                <div><div class="feat-name">Aplicações e ocorrências fitossanitárias</div><div class="feat-txt">Histórico de defensivos aplicados, pragas e doenças por talhão.</div></div>
-              </div>
-              <div class="feat-item">
-                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M6 20V11M11 20V6M16 20v-6"/><path d="M19 4l-3 3"/></svg></span>
-                <div><div class="feat-name">Colheitas e custos</div><div class="feat-txt">Produção colhida e informações financeiras de cada safra.</div></div>
-              </div>
-              <div class="feat-item">
-                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></span>
-                <div><div class="feat-name">Dashboard e relatórios</div><div class="feat-txt">Visão consolidada da propriedade para apoiar decisões.</div></div>
-              </div>
-              <div class="feat-item">
-                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
-                <div><div class="feat-name">Autenticação e perfis de acesso</div><div class="feat-txt">Login e permissões diferentes para cada tipo de usuário.</div></div>
-              </div>
-              <div class="feat-item">
-                <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6M10 4v5l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V4"/><path d="M7.5 15h9"/></svg></span>
-                <div><div class="feat-name">Regras de negócio</div><div class="feat-txt">Validações de estoque, talhões e permissões aplicadas no backend.</div></div>
+              <div class="dash-body">
+                <div class="dash-head">
+                  <div><span class="mock-h">Safra 2026/27</span><span class="mock-sub">Sítio do Seu Ricardo · Urânia-SP · 12 alqueires</span></div>
+                  <span class="proto-tag">Protótipo ilustrativo</span>
+                </div>
+                <div class="kpis" data-step="1">
+                  <div class="kpi"><span class="kpi-l">Faturamento</span><span class="kpi-v">R$ 684.000</span><span class="kpi-s">18.000 caixas × R$ 38</span></div>
+                  <div class="kpi"><span class="kpi-l">Custos da safra</span><span class="kpi-v">R$ 498.300</span><span class="kpi-s">5 categorias lançadas</span></div>
+                  <div class="kpi good"><span class="kpi-l">Saldo</span><span class="kpi-v">R$ 185.700</span><span class="kpi-s">27% do faturamento</span></div>
+                </div>
+                <div class="dash-grid">
+                  <section class="panel" data-step="2">
+                    <div class="panel-h">Gastos por categoria</div>
+                    <div class="cbars">
+                      <div class="cbar"><span>Adubos e insumos</span><i style="--w:100%"></i><b>R$ 168.000</b></div>
+                      <div class="cbar"><span>Defensivos</span><i style="--w:84.8%"></i><b>R$ 142.500</b></div>
+                      <div class="cbar"><span>Mão de obra · diárias</span><i style="--w:57.6%"></i><b>R$ 96.800</b></div>
+                      <div class="cbar hot"><span>Diesel</span><i style="--w:31.2%"></i><b>R$ 52.400</b></div>
+                      <div class="cbar hot"><span>Manutenção · peças</span><i style="--w:23%"></i><b>R$ 38.600</b></div>
+                    </div>
+                  </section>
+                  <section class="panel" data-step="3">
+                    <div class="panel-h">Colheita por talhão <small>caixas</small></div>
+                    <div class="hcols">
+                      <div class="hcol"><b>5.200</b><i style="--h:100%"></i><span>T1</span></div>
+                      <div class="hcol"><b>4.300</b><i style="--h:82.7%"></i><span>T2</span></div>
+                      <div class="hcol"><b>3.900</b><i style="--h:75%"></i><span>T3</span></div>
+                      <div class="hcol"><b>4.600</b><i style="--h:88.5%"></i><span>T4</span></div>
+                    </div>
+                  </section>
+                  <section class="panel" data-step="4">
+                    <div class="panel-h">Alertas</div>
+                    <div class="alerts">
+                      <div class="alert-item warn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9.5 17h-19z"/><path d="M12 10v4.5M12 17.5v.01"/></svg>
+                        <span><strong>Estoque baixo</strong>Fungicida cúprico: 20 L</span>
+                      </div>
+                      <div class="alert-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                        <span><strong>Aplicação pendente</strong>Talhão 3 · Estrada</span>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+                <p class="mock-note">Valores fictícios, coerentes com 12 alqueires de laranja.</p>
               </div>
             </div>
           </div>
         </article>
 
-        <!-- 06 Usuários e arquitetura -->
-        <article class="slide" data-slide="6" data-speaker="Lucas Mendes" data-topic="Usuários e arquitetura">
-          <div class="slide-inner l-split wide-right">
+        <!-- 10 Protótipo: regra de negócio -->
+        <article class="slide" data-slide="9" data-speaker="Lucas Mendes" data-topic="Protótipo: regra de negócio">
+          <div class="slide-inner l-split l-rule">
             <div class="split-content">
-              <h2 class="title-section">Quem usa e como o sistema é construído</h2>
-              <div class="profiles">
-                <div class="profile"><span class="profile-name">Produtor</span><span class="profile-txt">Dono da propriedade: acompanha custos, colheitas e relatórios.</span></div>
-                <div class="profile"><span class="profile-name">Funcionário</span><span class="profile-txt">Registra as atividades do dia a dia no campo.</span></div>
-                <div class="profile"><span class="profile-name">Resp. técnico</span><span class="profile-txt">Acompanha aplicações e ocorrências fitossanitárias.</span></div>
+              <h2 class="title-section">A regra de negócio em ação</h2>
+              <p class="lead">Luciano vai registrar uma aplicação de fungicida no Talhão 2. No galpão há 20 L, e ele informou 40 L.</p>
+              <div class="rule-note" data-step="1">
+                <span class="label">O que aconteceu</span>
+                <p>A regra fica no <strong>backend</strong>: o sistema não deixa registrar o que não existe no galpão.</p>
+                <p class="body">Esse mesmo cenário volta no diagrama de sequência, visto por dentro.</p>
               </div>
-              <span class="label" style="margin-top:6px">Ferramentas e tecnologias</span>
+            </div>
+            <div class="mock form-mock">
+              <div class="mock-bar">
+                <span class="mock-logo"><svg aria-hidden="true"><use href="#og-mark"/></svg>O Gerente</span>
+                <span class="mock-crumb">Aplicações · Nova</span>
+                <span class="mock-user"><span class="avatar">L</span>Luciano · Funcionário</span>
+              </div>
+              <div class="form-body">
+                <div class="form-h"><span class="mock-h">Registrar aplicação</span><span class="proto-tag">Protótipo ilustrativo</span></div>
+                <div class="fields">
+                  <div class="field"><span class="f-lbl">Responsável</span><span class="input">Luciano</span></div>
+                  <div class="field"><span class="f-lbl">Data</span><span class="input">14/10/2026</span></div>
+                  <div class="field"><span class="f-lbl">Talhão</span><span class="input">Talhão 2 · Córrego</span></div>
+                  <div class="field"><span class="f-lbl">Produto</span><span class="input">Fungicida cúprico</span></div>
+                  <div class="field qty"><span class="f-lbl">Quantidade</span><span class="input">40 <em>L</em></span><span class="f-hint">Em estoque: 20 L</span></div>
+                  <div class="field"><span class="f-lbl">Observação</span><span class="input muted">Pulverização preventiva</span></div>
+                </div>
+                <div class="mock-alert" data-step="1" role="alert">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></svg>
+                  <span><strong>Saldo insuficiente.</strong> Há 20 L de fungicida cúprico em estoque. Ajuste a quantidade ou registre uma entrada no estoque.</span>
+                </div>
+                <div class="form-actions"><span class="mbtn">Cancelar</span><span class="mbtn primary">Salvar aplicação</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 11 UML: casos de uso -->
+        <article class="slide" data-slide="10" data-speaker="Lucas Mendes" data-topic="Casos de uso">
+          <div class="slide-inner l-split l-uml">
+            <div class="split-content">
+              <h2 class="title-section">Casos de uso: quem faz o quê</h2>
+              <p class="body">As pessoas do sítio viram os atores do sistema.</p>
+              <div class="uc-list">
+                <div class="uc-item" data-step="1"><span class="uc-name">Produtor</span><span class="uc-txt">Seu Ricardo cadastra o sítio, lança custos e acompanha o painel e os relatórios.</span></div>
+                <div class="uc-item" data-step="2"><span class="uc-name">Funcionário</span><span class="uc-txt">Luciano registra atividades, colheitas, estoque e aplicações.</span></div>
+                <div class="uc-item" data-step="3"><span class="uc-name">Resp. técnico</span><span class="uc-txt">Carla registra aplicações e ocorrências fitossanitárias.</span></div>
+                <div class="uc-item key" data-step="4"><span class="uc-name">«include»</span><span class="uc-txt">Toda aplicação passa por <strong>Validar saldo de estoque</strong>, a mesma regra do protótipo.</span></div>
+              </div>
+            </div>
+            <div class="uml-fig">
+              <svg id="uc-svg" viewBox="0 0 760 530" role="img" aria-label="Diagrama de casos de uso do sistema O Gerente com os atores Produtor, Funcionário e Responsável técnico."></svg>
+            </div>
+          </div>
+        </article>
+
+        <!-- 12 UML: classes -->
+        <article class="slide" data-slide="11" data-speaker="Lucas Mendes" data-topic="Diagrama de classes">
+          <div class="slide-inner l-statement l-classes">
+            <div class="mock-title">
+              <h2 class="title-section">Classes: o que o sistema guarda</h2>
+              <p class="body">Domínio simplificado · só os atributos principais</p>
+            </div>
+            <div class="uml-fig">
+              <svg id="cls-svg" viewBox="0 0 1100 476" role="img" aria-label="Diagrama de classes simplificado: Propriedade, Talhão, Cultura, Atividade, Aplicação, Insumo, Colheita, Custo e Usuário."></svg>
+            </div>
+            <p class="cls-note" data-step="3"><strong>Custo.categoria</strong> = insumo · defensivo · diesel · manutenção · mão de obra. É aqui que o diesel e as peças deixam de escapar.</p>
+          </div>
+        </article>
+
+        <!-- 13 Arquitetura + sequência -->
+        <article class="slide" data-slide="12" data-speaker="Lucas Mendes" data-topic="Arquitetura e sequência">
+          <div class="slide-inner l-split l-seq">
+            <div class="split-content">
+              <h2 class="title-section">Por dentro, camada por camada</h2>
+              <p class="body">O mesmo cenário do protótipo, da tela até o banco.</p>
+              <div class="layers" aria-label="Arquitetura cliente-servidor em containers Docker">
+                <span class="layers-tag">Containers Docker</span>
+                <div class="ly" data-ly="front"><span class="ly-n">Angular</span><span class="ly-d">telas e componentes</span></div>
+                <div class="ly-link">API REST · JSON</div>
+                <div class="ly-group">
+                  <span class="ly-gn">Spring Boot</span>
+                  <div class="ly" data-ly="ctrl"><span class="ly-n">Controller</span><span class="ly-d">endpoints</span></div>
+                  <div class="ly" data-ly="svc"><span class="ly-n">Service</span><span class="ly-d">regras de negócio</span></div>
+                  <div class="ly" data-ly="repo"><span class="ly-n">Repository</span><span class="ly-d">acesso a dados</span></div>
+                </div>
+                <div class="ly db" data-ly="db"><span class="ly-n">PostgreSQL</span><span class="ly-d">banco de dados + backups</span></div>
+              </div>
               <div class="stack-tags">
                 <span class="tag">Angular</span><span class="tag">Spring Boot</span><span class="tag">API REST</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">Figma</span><span class="tag">JUnit + Mockito</span><span class="tag">Postman</span><span class="tag">UML</span>
               </div>
             </div>
-            <div class="arch">
-              <svg viewBox="0 0 560 400" role="img" aria-label="Arquitetura cliente-servidor: Angular no navegador se comunica via API REST com o backend Spring Boot, dividido em Controller, Service e Repository, que persiste no PostgreSQL; tudo em containers Docker.">
-                <rect x="1" y="1" width="558" height="398" rx="14" fill="none" stroke="#d4d2c9" stroke-dasharray="5 5"/>
-                <text x="20" y="28" font-family="Outfit" font-size="12" font-weight="600" letter-spacing="2" fill="#6b6b66">CONTAINERS DOCKER</text>
-
-                <rect x="20" y="52" width="170" height="130" rx="12" fill="#fff" stroke="#e8e6e0"/>
-                <text x="38" y="80" font-family="Outfit" font-size="12" font-weight="600" letter-spacing="1.6" fill="#6b6b66">FRONTEND</text>
-                <text x="38" y="112" font-family="Outfit" font-size="26" font-weight="400" fill="#0a0a0a">Angular</text>
-                <text x="38" y="138" font-family="Inter" font-size="12.5" fill="#6b6b66">Telas, navegação e</text>
-                <text x="38" y="156" font-family="Inter" font-size="12.5" fill="#6b6b66">componentes (Figma)</text>
-
-                <line x1="190" y1="117" x2="262" y2="117" stroke="#0a0a0a" stroke-width="1.5"/>
-                <path d="M254 111l8 6-8 6" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
-                <rect x="198" y="92" width="56" height="18" rx="4" fill="#f7f6f2"/>
-                <text x="226" y="105" text-anchor="middle" font-family="Outfit" font-size="11" font-weight="600" fill="#a8520a">REST</text>
-                <text x="226" y="140" text-anchor="middle" font-family="Inter" font-size="11" fill="#9a988f">JSON</text>
-
-                <rect x="266" y="52" width="274" height="210" rx="12" fill="#0a0a0a"/>
-                <text x="286" y="80" font-family="Outfit" font-size="12" font-weight="600" letter-spacing="1.6" fill="#9a988f">BACKEND</text>
-                <text x="286" y="112" font-family="Outfit" font-size="26" font-weight="400" fill="#f7f6f2">Spring Boot</text>
-                <rect x="286" y="130" width="234" height="34" rx="7" fill="none" stroke="#3a3a38"/>
-                <text x="300" y="152" font-family="Outfit" font-size="14" font-weight="500" fill="#f7f6f2">Controller</text>
-                <text x="506" y="152" text-anchor="end" font-family="Inter" font-size="11.5" fill="#9a988f">endpoints</text>
-                <rect x="286" y="170" width="234" height="34" rx="7" fill="none" stroke="#3a3a38"/>
-                <text x="300" y="192" font-family="Outfit" font-size="14" font-weight="500" fill="#f7f6f2">Service</text>
-                <text x="506" y="192" text-anchor="end" font-family="Inter" font-size="11.5" fill="#9a988f">regras de negócio</text>
-                <rect x="286" y="210" width="234" height="34" rx="7" fill="none" stroke="#3a3a38"/>
-                <text x="300" y="232" font-family="Outfit" font-size="14" font-weight="500" fill="#f7f6f2">Repository</text>
-                <text x="506" y="232" text-anchor="end" font-family="Inter" font-size="11.5" fill="#9a988f">acesso a dados</text>
-
-                <line x1="403" y1="262" x2="403" y2="298" stroke="#0a0a0a" stroke-width="1.5"/>
-                <path d="M397 290l6 8 6-8" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
-
-                <rect x="266" y="302" width="274" height="78" rx="12" fill="rgba(0,140,126,.09)" stroke="#008c7e"/>
-                <text x="286" y="330" font-family="Outfit" font-size="12" font-weight="600" letter-spacing="1.6" fill="#006b60">BANCO DE DADOS</text>
-                <text x="286" y="360" font-family="Outfit" font-size="22" font-weight="400" fill="#0a0a0a">PostgreSQL</text>
-                <text x="520" y="360" text-anchor="end" font-family="Inter" font-size="11.5" fill="#006b60">+ backups</text>
-
-                <text x="20" y="226" font-family="Outfit" font-size="12" font-weight="600" letter-spacing="1.6" fill="#6b6b66">SEGURANÇA</text>
-                <text x="20" y="248" font-family="Inter" font-size="12.5" fill="#1c1c1c">Autenticação e</text>
-                <text x="20" y="266" font-family="Inter" font-size="12.5" fill="#1c1c1c">autorização por perfil</text>
-                <text x="20" y="308" font-family="Outfit" font-size="12" font-weight="600" letter-spacing="1.6" fill="#6b6b66">MODELAGEM</text>
-                <text x="20" y="330" font-family="Inter" font-size="12.5" fill="#1c1c1c">Casos de uso, classes</text>
-                <text x="20" y="348" font-family="Inter" font-size="12.5" fill="#1c1c1c">e atividades em UML</text>
-              </svg>
+            <div class="uml-fig seq-fig">
+              <svg id="seq-svg" viewBox="0 0 800 520" role="img" aria-label="Diagrama de sequência: Luciano salva a aplicação, a tela chama a API, o Service consulta o saldo no banco, encontra 20 litros para 40 pedidos e devolve o erro saldo insuficiente até a tela."></svg>
             </div>
           </div>
         </article>
@@ -731,8 +1251,8 @@
           </div>
         </article>
 
-        <!-- 07 Como planejamos -->
-        <article class="slide" data-slide="7" data-speaker="Rhiady Vieira" data-topic="Como planejamos">
+        <!-- 15 Como planejamos -->
+        <article class="slide" data-slide="13" data-speaker="Rhiady Vieira" data-topic="Como planejamos">
           <div class="slide-inner l-statement">
             <h2 class="title-section">Como planejamos o projeto</h2>
             <p class="lead">Dividimos o desenvolvimento nas fases clássicas da engenharia de software e cadastramos cada atividade no Monday.com, com duração definida pela complexidade técnica — e não um valor igual para todas.</p>
@@ -757,8 +1277,8 @@
           </div>
         </article>
 
-        <!-- 08 Cronograma -->
-        <article class="slide" data-slide="8" data-speaker="Rhiady Vieira" data-topic="Cronograma">
+        <!-- 16 Cronograma -->
+        <article class="slide" data-slide="14" data-speaker="Rhiady Vieira" data-topic="Cronograma">
           <div class="slide-inner l-gantt">
             <h2 class="title-section">Cronograma: 21/09/2026 a 18/03/2027</h2>
             <div class="gantt" id="gantt">
@@ -776,8 +1296,8 @@
           </div>
         </article>
 
-        <!-- 09 Quadro ao vivo -->
-        <article class="slide" data-slide="9" data-speaker="Rhiady Vieira" data-topic="Quadro no Monday.com">
+        <!-- 17 Quadro ao vivo -->
+        <article class="slide" data-slide="15" data-speaker="Rhiady Vieira" data-topic="Quadro no Monday.com">
           <div class="slide-inner l-split">
             <div class="split-content">
               <h2 class="title-section">O cronograma completo, ao vivo no Monday.com</h2>
@@ -803,8 +1323,8 @@
           </div>
         </article>
 
-        <!-- 10 Análise -->
-        <article class="slide" data-slide="10" data-speaker="Rhiady Vieira" data-topic="Análise do cronograma">
+        <!-- 18 Análise -->
+        <article class="slide" data-slide="16" data-speaker="Rhiady Vieira" data-topic="Análise do cronograma">
           <div class="slide-inner l-table">
             <h2 class="title-section">O que a análise do cronograma mostrou</h2>
             <div class="table-wrap">
@@ -826,8 +1346,8 @@
           </div>
         </article>
 
-        <!-- 11 Simulação de atraso -->
-        <article class="slide" data-slide="11" data-speaker="Rhiady Vieira" data-topic="Simulação de atraso">
+        <!-- 19 Simulação de atraso -->
+        <article class="slide" data-slide="17" data-speaker="Rhiady Vieira" data-topic="Simulação de atraso">
           <div class="slide-inner l-sim" id="sim">
             <h2 class="title-section">Simulação: +5 dias na integração frontend + API REST</h2>
             <div class="sim-scene">
@@ -852,8 +1372,8 @@
           </div>
         </article>
 
-        <!-- 12 Mitigação e aprendizados -->
-        <article class="slide" data-slide="12" data-speaker="Rhiady Vieira" data-topic="Aprendizados">
+        <!-- 20 Mitigação e aprendizados -->
+        <article class="slide" data-slide="18" data-speaker="Rhiady Vieira" data-topic="Aprendizados">
           <div class="slide-inner l-compare">
             <h2 class="title-section">Como reduzir o impacto — e o que aprendemos</h2>
             <div class="grid-2">
@@ -918,6 +1438,7 @@
         <div class="progress" aria-hidden="true">
           <div class="progress-fill" id="progress"></div>
         </div>
+        <span class="step-dots" id="step-dots" aria-hidden="true" hidden></span>
         <span class="nav-hint">← → para navegar</span>
       </footer>
     </main>
@@ -1038,6 +1559,178 @@
         play.addEventListener("click", function () { place(true); });
         reset.addEventListener("click", function () { place(false); });
 
+        /* ---------- SVG: utilitário ---------- */
+        var SVGNS = "http://www.w3.org/2000/svg";
+        function mk(tag, attrs, parent, text) {
+          var n = document.createElementNS(SVGNS, tag);
+          for (var k in attrs) n.setAttribute(k, attrs[k]);
+          if (text != null) n.textContent = text;
+          if (parent) parent.appendChild(n);
+          return n;
+        }
+
+        /* ---------- Sítio: laranjeiras dos talhões ---------- */
+        document.querySelectorAll(".farm .orchard").forEach(function (g) {
+          var x = +g.dataset.x, y = +g.dataset.y, w = +g.dataset.w, h = +g.dataset.h, k = 0;
+          for (var cy = y + 16; cy <= y + h - 10; cy += 15) {
+            for (var cx = x + 14; cx <= x + w - 10; cx += 15) {
+              mk("circle", { "class": "f-tree", cx: cx, cy: cy, r: 5.2 }, g);
+              if (k++ % 3 === 1) mk("circle", { "class": "f-fruit", cx: cx + 2.2, cy: cy - 1.8, r: 1.5 }, g);
+            }
+          }
+        });
+
+        /* ---------- UML: casos de uso ---------- */
+        (function () {
+          var svg = document.getElementById("uc-svg");
+          var CX = 320, RX = 138, RY = 19;
+          var actors = [
+            { s: 1, x: 55, y: 120, n: "Produtor" },
+            { s: 2, x: 55, y: 330, n: "Funcionário" },
+            { s: 3, x: 55, y: 462, n: "Resp. técnico" }
+          ];
+          var cases = [
+            { s: 1, y: 58,  n: "Cadastrar propriedade e talhões", a: [0] },
+            { s: 1, y: 104, n: "Lançar custos", a: [0] },
+            { s: 1, y: 150, n: "Consultar dashboard", a: [0] },
+            { s: 1, y: 196, n: "Gerar relatórios", a: [0] },
+            { s: 1, y: 242, n: "Gerenciar usuários", a: [0] },
+            { s: 2, y: 296, n: "Registrar atividade", a: [1] },
+            { s: 2, y: 342, n: "Registrar colheita", a: [1] },
+            { s: 2, y: 388, n: "Movimentar estoque", a: [1] },
+            { s: 2, y: 434, n: "Registrar aplicação", a: [1, 2], hot: true },
+            { s: 3, y: 480, n: "Registrar ocorrência fitossanitária", a: [2] }
+          ];
+          mk("rect", { "class": "u-bound", x: 130, y: 8, width: 622, height: 514, rx: 16 }, svg);
+          mk("text", { "class": "u-sys", x: 736, y: 32, "text-anchor": "end" }, svg, "O GERENTE");
+          var groups = [1, 2, 3, 4].map(function (s) { return mk("g", { "data-step": s }, svg); });
+          var lineLayer = groups.map(function (g) { return mk("g", {}, g); });
+
+          actors.forEach(function (a, i) {
+            var g = mk("g", {}, groups[a.s - 1]);
+            mk("circle", { "class": "u-head", cx: a.x, cy: a.y - 26, r: 10 }, g);
+            mk("path", { "class": "u-actor", d: "M" + a.x + " " + (a.y - 16) + "V" + (a.y + 12) + "M" + (a.x - 17) + " " + (a.y - 6) + "H" + (a.x + 17) + "M" + a.x + " " + (a.y + 12) + "L" + (a.x - 13) + " " + (a.y + 32) + "M" + a.x + " " + (a.y + 12) + "L" + (a.x + 13) + " " + (a.y + 32) }, g);
+            mk("text", { "class": "u-aname", x: a.x, y: a.y + 52, "text-anchor": "middle" }, g, a.n);
+          });
+          cases.forEach(function (c) {
+            c.a.forEach(function (ai) {
+              var a = actors[ai], s = Math.max(a.s, c.s);
+              mk("line", { "class": "u-assoc", x1: a.x + 22, y1: a.y - 4, x2: CX - RX, y2: c.y }, lineLayer[s - 1]);
+            });
+            var g = mk("g", {}, groups[c.s - 1]);
+            mk("ellipse", { "class": "u-case" + (c.hot ? " hot" : ""), cx: CX, cy: c.y, rx: RX, ry: RY }, g);
+            mk("text", { "class": "u-cname", x: CX, y: c.y + 4.5, "text-anchor": "middle" }, g, c.n);
+          });
+          var inc = groups[3], VX = 630, VR = 96;
+          mk("line", { "class": "u-inc", x1: CX + RX, y1: 434, x2: VX - VR - 2, y2: 434 }, inc);
+          mk("path", { "class": "u-inc-h", d: "M" + (VX - VR - 11) + " 429L" + (VX - VR - 2) + " 434L" + (VX - VR - 11) + " 439" }, inc);
+          mk("text", { "class": "u-inc-t", x: (CX + RX + VX - VR) / 2, y: 424, "text-anchor": "middle" }, inc, "«include»");
+          mk("ellipse", { "class": "u-case hot", cx: VX, cy: 434, rx: VR, ry: RY }, inc);
+          mk("text", { "class": "u-cname", x: VX, y: 438.5, "text-anchor": "middle" }, inc, "Validar saldo de estoque");
+        })();
+
+        /* ---------- UML: classes ---------- */
+        (function () {
+          var svg = document.getElementById("cls-svg");
+          var W = 300, H = 106;
+          var classes = [
+            { s: 1, x: 30,  y: 14,  n: "Cultura",     a: ["variedade: String", "anoPlantio: int", "qtdPlantas: int"] },
+            { s: 1, x: 400, y: 14,  n: "Talhao",      a: ["nome: String", "areaAlqueires: BigDecimal"] },
+            { s: 1, x: 770, y: 14,  n: "Propriedade", a: ["nome: String", "municipio: String", "areaAlqueires: BigDecimal"] },
+            { s: 2, x: 30,  y: 186, n: "Atividade",   a: ["tipo: TipoAtividade", "data: LocalDate", "descricao: String"] },
+            { s: 2, x: 400, y: 186, n: "Aplicacao",   a: ["data: LocalDate", "quantidade: BigDecimal"] },
+            { s: 3, x: 770, y: 186, n: "Colheita",    a: ["data: LocalDate", "caixas: int", "precoCaixa: BigDecimal"] },
+            { s: 3, x: 30,  y: 358, n: "Usuario",     a: ["nome: String", "email: String", "perfil: Perfil"] },
+            { s: 2, x: 400, y: 358, n: "Insumo",      a: ["nome: String", "unidade: String", "saldo: BigDecimal"], key: 2 },
+            { s: 3, x: 770, y: 358, n: "Custo",       a: ["data: LocalDate", "valor: BigDecimal", "categoria: CategoriaCusto"], key: 2, hot: true }
+          ];
+          // [passo, caminho, multiplicidades [x, y, texto, âncora], papel]
+          var links = [
+            [1, "M330 67H400",            [[338, 60, "*"], [392, 60, "1", "end"]]],
+            [1, "M700 67H770",            [[708, 60, "*"], [762, 60, "1", "end"]]],
+            [2, "M450 120V153H180V186",   [[456, 138, "1"], [186, 180, "*"]]],
+            [2, "M550 120V186",           [[556, 138, "1"], [556, 180, "*"]]],
+            [2, "M550 292V358",           [[556, 310, "*"], [556, 352, "1"]]],
+            [3, "M650 120V153H920V186",   [[656, 138, "1"], [926, 180, "*"]]],
+            [3, "M180 358V292",           [[186, 352, "1"], [186, 310, "*"]], [194, 331, "responsável"]],
+            [3, "M330 400H365V240H400",   [[338, 394, "1"], [394, 234, "*", "end"]]],
+            [3, "M1070 411H1088V67H1070", [[1076, 430, "*"], [1076, 60, "1"]]]
+          ];
+          var groups = [1, 2, 3].map(function (s) { return mk("g", { "data-step": s }, svg); });
+          links.forEach(function (l) {
+            var g = groups[l[0] - 1];
+            mk("path", { "class": "c-link", d: l[1] }, g);
+            l[2].forEach(function (m) { mk("text", { "class": "c-mult", x: m[0], y: m[1], "text-anchor": m[3] || "start" }, g, m[2]); });
+            if (l[3]) mk("text", { "class": "c-role", x: l[3][0], y: l[3][1] }, g, l[3][2]);
+          });
+          classes.forEach(function (c) {
+            var g = mk("g", c.hot ? { "class": "c-hot" } : {}, groups[c.s - 1]);
+            mk("rect", { "class": "c-box", x: c.x, y: c.y, width: W, height: H, rx: 8 }, g);
+            mk("path", { "class": "c-head", d: "M" + (c.x + 8) + " " + c.y + "H" + (c.x + W - 8) + "a8 8 0 0 1 8 8V" + (c.y + 32) + "H" + c.x + "V" + (c.y + 8) + "a8 8 0 0 1 8-8z" }, g);
+            mk("rect", { "class": "c-box c-outline", x: c.x, y: c.y, width: W, height: H, rx: 8 }, g);
+            mk("line", { "class": "c-sep", x1: c.x, y1: c.y + 32, x2: c.x + W, y2: c.y + 32 }, g);
+            mk("text", { "class": "c-name", x: c.x + W / 2, y: c.y + 21.5, "text-anchor": "middle" }, g, c.n);
+            c.a.forEach(function (t, i) {
+              mk("text", { "class": "c-attr" + (c.key === i ? " key" : ""), x: c.x + 14, y: c.y + 54 + i * 20 }, g, "− " + t);
+            });
+          });
+        })();
+
+        /* ---------- UML: sequência (única animação) ---------- */
+        (function () {
+          var svg = document.getElementById("seq-svg");
+          var X = [40, 174, 312, 450, 588, 728];
+          var heads = [
+            null,
+            ["Tela", "Angular"],
+            ["AplicacaoController", "Spring · endpoint"],
+            ["AplicacaoService", "regras de negócio"],
+            ["InsumoRepository", "acesso a dados"],
+            ["PostgreSQL", "banco de dados"]
+          ];
+          var msgs = [
+            { s: 1, f: 0, t: 1, y: 112, l: "salvar(40 L)" },
+            { s: 1, f: 1, t: 2, y: 150, l: "POST /api/aplicacoes" },
+            { s: 2, f: 2, t: 3, y: 188, l: "registrar(dto)" },
+            { s: 3, f: 3, t: 4, y: 226, l: "buscarSaldo(insumoId)" },
+            { s: 3, f: 4, t: 5, y: 264, l: "SELECT saldo" },
+            { s: 3, f: 5, t: 4, y: 302, l: "20 L", r: 1 },
+            { s: 3, f: 4, t: 3, y: 340, l: "saldo = 20 L", r: 1 },
+            { s: 4, f: 3, t: 2, y: 420, l: "SaldoInsuficienteException", r: 1, hot: 1 },
+            { s: 5, f: 2, t: 1, y: 464, l: "422 · saldo insuficiente", r: 1, hot: 1 },
+            { s: 5, f: 1, t: 0, y: 500, l: "mostra o alerta", r: 1 }
+          ];
+          // Luciano (ator) + cabeçalhos das linhas de vida
+          mk("circle", { "class": "u-head", cx: X[0], cy: 18, r: 8 }, svg);
+          mk("path", { "class": "u-actor", d: "M40 26V44M27 33H53M40 44L30 58M40 44L50 58" }, svg);
+          mk("text", { "class": "s-name", x: X[0], y: 76, "text-anchor": "middle" }, svg, "Luciano");
+          mk("line", { "class": "s-life", x1: X[0], y1: 84, x2: X[0], y2: 514 }, svg);
+          heads.forEach(function (h, i) {
+            if (!h) return;
+            mk("rect", { "class": "s-box", x: X[i] - 64, y: 12, width: 128, height: 46, rx: 8 }, svg);
+            mk("text", { "class": "s-name", x: X[i], y: 32, "text-anchor": "middle" }, svg, h[0]);
+            mk("text", { "class": "s-sub", x: X[i], y: 48, "text-anchor": "middle" }, svg, h[1]);
+            mk("line", { "class": "s-life", x1: X[i], y1: 58, x2: X[i], y2: 514 }, svg);
+          });
+          // fragmento alt
+          var alt = mk("g", { "data-step": 4 }, svg);
+          mk("rect", { "class": "s-alt", x: 250, y: 362, width: 272, height: 76, rx: 6 }, alt);
+          mk("path", { "class": "s-alt-tab", d: "M250 368a6 6 0 0 1 6-6H292V374L284 382H250Z" }, alt);
+          mk("text", { "class": "s-alt-t", x: 260, y: 377 }, alt, "alt");
+          mk("text", { "class": "s-guard", x: 302, y: 378 }, alt, "[saldo 20 L < 40 L pedidos]");
+          // mensagens
+          var order = {};
+          msgs.forEach(function (m) {
+            var n = order[m.s] = (order[m.s] || 0) + 1;
+            var x1 = X[m.f], x2 = X[m.t], dir = x2 > x1 ? 1 : -1;
+            var g = mk("g", { "class": "msg" + (m.hot ? " hot" : ""), "data-step": m.s, style: "--d:" + ((n - 1) * 480) + "ms" }, svg);
+            mk("line", { "class": "m-line" + (m.r ? " r" : ""), x1: x1, y1: m.y, x2: x2 - dir * 2, y2: m.y, style: "transform-origin:" + x1 + "px " + m.y + "px" }, g);
+            if (m.r) mk("path", { "class": "m-head r", d: "M" + (x2 - dir * 10) + " " + (m.y - 5) + "L" + x2 + " " + m.y + "L" + (x2 - dir * 10) + " " + (m.y + 5) }, g);
+            else mk("path", { "class": "m-head", d: "M" + x2 + " " + m.y + "L" + (x2 - dir * 10) + " " + (m.y - 5) + "V" + (m.y + 5) + "Z" }, g);
+            mk("text", { "class": "m-lbl", x: (x1 + x2) / 2, y: m.y - 7, "text-anchor": "middle" }, g, m.l);
+          });
+        })();
+
         /* ---------- Navegação ---------- */
         var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
         var total = slides.length;
@@ -1049,17 +1742,39 @@
         var speakerName = document.getElementById("speaker-name");
         var speakerTopic = document.getElementById("speaker-topic");
         var ganttSlide = gantt.closest(".slide");
+        var stepDots = document.getElementById("step-dots");
         var index = 0;
+
+        /* Etapas: elementos com data-step="n" aparecem um passo por vez */
+        var steps = slides.map(function (s) {
+          var els = Array.prototype.slice.call(s.querySelectorAll("[data-step]"));
+          var max = els.reduce(function (m, el) { return Math.max(m, +el.getAttribute("data-step")); }, 0);
+          return { els: els, max: max, at: 0, inner: s.querySelector(".slide-inner") };
+        });
+
+        function applySteps(i) {
+          var st = steps[i];
+          st.els.forEach(function (el) { el.classList.toggle("on", +el.getAttribute("data-step") <= st.at); });
+          if (st.inner) st.inner.setAttribute("data-at", st.at);
+        }
 
         document.getElementById("total").textContent = "/ " + String(total).padStart(2, "0");
 
         function render() {
           slides.forEach(function (s, i) { s.classList.toggle("active", i === index); });
-          var cur = slides[index];
+          var cur = slides[index], st = steps[index];
+          applySteps(index);
           currentEl.textContent = String(index + 1).padStart(2, "0");
           progress.style.transform = "scaleX(" + (index + 1) / total + ")";
-          prevBtn.disabled = index === 0;
-          nextBtn.disabled = index === total - 1;
+          prevBtn.disabled = index === 0 && st.at === 0;
+          nextBtn.disabled = index === total - 1 && st.at === st.max;
+          stepDots.hidden = st.max === 0;
+          stepDots.innerHTML = "";
+          for (var k = 1; k <= st.max; k++) {
+            var dot = document.createElement("i");
+            if (k <= st.at) dot.className = "on";
+            stepDots.appendChild(dot);
+          }
           var who = cur.getAttribute("data-speaker");
           speaker.hidden = !who;
           if (who) { speakerName.textContent = who; speakerTopic.textContent = "· " + cur.getAttribute("data-topic"); }
@@ -1069,9 +1784,20 @@
         }
 
         function go(dir) {
+          var st = steps[index];
+          if (dir > 0 && st.at < st.max) { st.at++; render(); return; }
+          if (dir < 0 && st.at > 0) { st.at--; render(); return; }
           var n = Math.max(0, Math.min(total - 1, index + dir));
           if (n === index) return;
           index = n;
+          // avançando começa do zero; voltando encontra o slide completo
+          steps[index].at = dir > 0 ? 0 : steps[index].max;
+          render();
+        }
+
+        function jump(i, full) {
+          index = i;
+          steps[index].at = full ? steps[index].max : 0;
           render();
         }
 
@@ -1082,8 +1808,8 @@
           if (e.target.closest && e.target.closest("button, a") && (e.key === " " || e.key === "Enter")) return;
           if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); go(1); }
           else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); go(-1); }
-          else if (e.key === "Home") { index = 0; render(); }
-          else if (e.key === "End") { index = total - 1; render(); }
+          else if (e.key === "Home") jump(0, false);
+          else if (e.key === "End") jump(total - 1, true);
         });
 
         var tx = 0;
@@ -1095,6 +1821,8 @@
 
         var hash = parseInt(location.hash.slice(1), 10);
         if (hash >= 1 && hash <= total) index = hash - 1;
+        // ?all revela todas as etapas (útil para revisar o conteúdo)
+        if (/[?&]all\b/.test(location.search)) steps.forEach(function (st) { st.at = st.max; });
         render();
         if (/[?&]sim\b/.test(location.search)) place(true);
       })();

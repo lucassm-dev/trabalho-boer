@@ -25,3 +25,14 @@ tamanhos, paleta neutra clara e padrões de layout. Acento adaptado às cores da
 ## Suposições
 - A finalidade e os objetivos do sistema foram inferidos das atividades do cronograma; os PDFs
   não trazem uma descrição formal.
+
+## "O Gerente" e a história do Seu Ricardo (parte do Lucas)
+- O sistema é apresentado como **O Gerente**, apelido do Seu Ricardo (avô do Lucas), citricultor
+  em Urânia-SP (12 alqueires, só laranja, venda no pé). Ele é um **exemplo**: o sistema serve para
+  pequenos e médios citricultores em geral.
+- Dados reais: nome, apelido, cidade, área, cultura, forma de venda, Luciano (funcionário, tio do
+  Lucas), diaristas na colheita e as dores de gastos não anotados, faturamento incerto e boletos.
+- Dados fictícios são sempre etiquetados: a agrônoma Carla, os nomes dos talhões, os valores do
+  painel e os mockups (selo "Protótipo ilustrativo"). O projeto é só escopo, sem telas ou código.
+- Aviso de boletos fica fora do escopo ("próximo passo"); o escopo segue o cronograma do Monday.com.
+- Decisões completas: `docs/superpowers/specs/2026-09-30-parte-lucas-design.md`.
