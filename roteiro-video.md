@@ -92,32 +92,55 @@ mostra o alerta." — "Agora a Rhiady apresenta como planejamos tudo isso."
 tem responsável, datas, duração, folga e dependência. A duração foi definida pela complexidade de
 cada tarefa, e não um valor igual para todas."
 
-**16 · Cronograma**
+**16 · Como ler uma atividade** (3 etapas)
+"Antes do cronograma, um exemplo de como ler uma atividade: levantar necessidades dos usuários."
+→ "A duração é de 4 dias úteis, de 22 a 25 de setembro." → "Ela depende de identificar os
+stakeholders, então só começa depois dela." → "E tem 1 dia de folga: pode atrasar um dia sem empurrar
+nenhuma outra atividade."
+
+**17 · Cronograma**
 "O projeto começa em 21 de setembro de 2026 e termina em 18 de março de 2027. A fase mais longa é a
 Implementação, com 62 dias. Em laranja está a integração do frontend com a API, a atividade crítica
 que vamos simular daqui a pouco."
 
-**17 · Quadro no Monday.com — DEMONSTRAÇÃO**
+**18 · Zoom por fase — CLICAR NAS FASES**
+"Aqui dá para abrir cada fase e ver as atividades dela." Clicar em **Implementação**: "São 12
+atividades. Em preto as do Lucas, em verde as minhas. À direita, a duração e a folga de cada uma."
+Se quiser, clicar em mais uma fase (ex.: **Testes**) e avançar.
+
+**19 · Quadro no Monday.com — DEMONSTRAÇÃO**
 Clicar em **Abrir cronograma**. Mostrar: (1) o quadro principal com os grupos por fase, (2) as colunas
 de folga e dependência, (3) a aba Gantt com as ligações. Voltar para a apresentação.
 > Antes de gravar: confirmar que o link abre (logado ou com o quadro compartilhado).
 
-**18 · Análise do cronograma**
-"A primeira atividade é identificar os stakeholders, e a última antes da manutenção é liberar a
-implantação piloto, em 4 de março. Backend e frontend foram planejados em paralelo. As dependências
-seguem a ordem requisitos, análise, design, implementação, testes e implantação. As folgas vão de 1 a
-3 dias. A maior atividade é o dashboard, colheitas, custos e relatórios, com 9 dias. E a que mais
-impacta se atrasar é a integração do frontend com a API REST, que tem folga zero."
+**20 · Duas frentes em paralelo** (3 etapas)
+"Na implementação o trabalho foi dividido em duas frentes. O Lucas faz o backend, um módulo depois do
+outro." → "Ao mesmo tempo eu desenvolvo o frontend." → "As duas frentes se encontram na integração,
+de 6 a 12 de janeiro, que só começa quando o backend termina." → "No projeto todo, são 31 atividades
+do Lucas, 19 minhas e 3 em dupla."
 
-**19 · Simulação de atraso**
+**21 · Onde o cronograma não tem margem** (3 etapas)
+"Cada quadradinho é uma das 53 atividades." → "Em verde, as 19 que têm folga, de 1 a 3 dias." →
+"Em laranja, as 34 com folga zero: se atrasarem, o atraso passa adiante." → "Entre elas está a
+integração do frontend com a API, que é também o ponto de encontro das duas frentes."
+
+**22 · Análise do cronograma**
+"Resumindo a análise: a primeira atividade é identificar os stakeholders, e a última antes da
+manutenção é liberar a implantação piloto, em 4 de março. Backend e frontend foram planejados em
+paralelo. As dependências seguem a ordem requisitos, análise, design, implementação, testes e
+implantação. As folgas vão de 1 a 3 dias. A maior atividade é o dashboard, colheitas, custos e
+relatórios, com 9 dias. E a que mais impacta se atrasar é a integração do frontend com a API REST,
+que tem folga zero."
+
+**23 · Simulação de atraso**
 "Escolhemos essa integração, prevista de 6 a 12 de janeiro, e aplicamos 5 dias de atraso."
 Clicar em **Aplicar atraso**. "Os testes que dependem dela foram empurrados, mas os testes funcionais
 do frontend tinham folga e não mudaram. No fim, os testes terminam só 1 dia depois, e a implantação
 piloto continua em 4 de março."
 
-**20 · Como reduzir o impacto e o que aprendemos**
+**24 · Como reduzir o impacto e o que aprendemos**
 Ler as cinco ações de mitigação. Fechar com: "Nem todo atraso de 5 dias vira 5 dias no prazo final:
 dependências, folgas e paralelismo permitem decidir antes que um atraso local vire um atraso global."
 
-**21 · Encerramento** (os dois)
+**25 · Encerramento** (os dois)
 "Obrigado pela atenção!"

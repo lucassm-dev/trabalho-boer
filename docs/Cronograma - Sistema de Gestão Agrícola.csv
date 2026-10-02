@@ -1,0 +1,54 @@
+﻿Nome,Fase,Responsável,Início,Término,Duração (dias),Folga (dias),Status,Observação,Dependência,ID Monday
+Identificar stakeholders do projeto,Levantamento de Requisitos,Integrante 1,2026-09-21,2026-09-21,1,0,Planejada,Atividade inicial do projeto,,13013138493
+Realizar entrevistas com produtores,Levantamento de Requisitos,Integrante 1,2026-09-22,2026-09-24,3,0,Planejada,Coleta direta de necessidades,Identificar stakeholders do projeto,13013138494
+Levantar necessidades dos usuários,Levantamento de Requisitos,Integrante 2,2026-09-22,2026-09-25,4,1,Planejada,Pode ocorrer em paralelo às entrevistas,Identificar stakeholders do projeto,13013138495
+Analisar o processo atual (AS-IS),Levantamento de Requisitos,Integrante 2,2026-09-28,2026-09-30,3,1,Planejada,Mapeamento do processo atual,Realizar entrevistas com produtores,13013138496
+Definir o processo proposto (TO-BE),Levantamento de Requisitos,Integrante 1,2026-10-01,2026-10-02,2,0,Planejada,Base para definição da solução,Analisar o processo atual (AS-IS),13013138497
+Identificar requisitos funcionais,Levantamento de Requisitos,Integrante 1,2026-10-05,2026-10-07,3,0,Planejada,Funcionalidades do sistema,Definir o processo proposto (TO-BE),13013115103
+Identificar requisitos não funcionais,Levantamento de Requisitos,Integrante 2,2026-10-05,2026-10-06,2,1,Planejada,"Segurança, desempenho e usabilidade",Definir o processo proposto (TO-BE),13013115104
+Documentar e priorizar os requisitos,Levantamento de Requisitos,Integrante 1,2026-10-08,2026-10-09,2,0,Planejada,Consolidação dos requisitos,Identificar requisitos não funcionais,13013115105
+Validar requisitos com os stakeholders,Levantamento de Requisitos,Integrante 1,2026-10-12,2026-10-12,1,0,Planejada,Marco de encerramento da fase,Documentar e priorizar os requisitos,13013115106
+Analisar e refinar os requisitos,Análise de Sistemas,Integrante 1,2026-10-13,2026-10-14,2,0,Planejada,Início da análise técnica,Validar requisitos com os stakeholders,13013115107
+Identificar atores e casos de uso,Análise de Sistemas,Integrante 1,2026-10-15,2026-10-16,2,0,Planejada,"Produtor, funcionário e responsável técnico",Analisar e refinar os requisitos,13013115108
+Modelar entidades do domínio,Análise de Sistemas,Integrante 2,2026-10-15,2026-10-19,3,1,Planejada,"Propriedade, talhão, cultura, atividade etc.",Analisar e refinar os requisitos,13013115109
+Elaborar Diagrama de Casos de Uso UML,Análise de Sistemas,Integrante 1,2026-10-19,2026-10-20,2,1,Planejada,Representação das interações,Identificar atores e casos de uso,13013115110
+Elaborar Diagrama de Classes UML,Análise de Sistemas,Integrante 2,2026-10-20,2026-10-22,3,0,Planejada,Relacionamentos e multiplicidades,Modelar entidades do domínio,13013115111
+Definir regras de negócio,Análise de Sistemas,Integrante 1,2026-10-21,2026-10-23,3,0,Planejada,"Regras de estoque, talhões e permissões",Identificar atores e casos de uso,13013138544
+Elaborar Diagrama de Atividades UML,Análise de Sistemas,Integrante 2,2026-10-23,2026-10-26,2,1,Planejada,Fluxo de registro de atividade agrícola,Definir regras de negócio,13013138545
+Consolidar especificação do sistema,Análise de Sistemas,Integrante 1,2026-10-27,2026-10-28,2,0,Planejada,Encerramento da análise,Elaborar Diagrama de Classes UML,13013138546
+Definir arquitetura cliente-servidor,Design,Integrante 1,2026-10-29,2026-10-30,2,0,Planejada,"Angular, REST, Spring Boot e PostgreSQL",Consolidar especificação do sistema,13013138547
+Definir arquitetura em camadas do backend,Design,Integrante 1,2026-11-02,2026-11-03,2,0,Planejada,"Controller, Service e Repository",Definir arquitetura cliente-servidor,13013138548
+Modelar banco de dados relacional,Design,Integrante 1,2026-11-02,2026-11-05,4,1,Planejada,Modelo lógico e relacionamentos,Consolidar especificação do sistema,13013138549
+Criar wireframes de baixa fidelidade no Figma,Design,Integrante 2,2026-10-29,2026-11-03,4,2,Planejada,Fluxos e disposição dos componentes,Consolidar especificação do sistema,13013122360
+Definir Design System no Figma,Design,Integrante 2,2026-11-04,2026-11-06,3,1,Planejada,"Tipografia, botões, formulários e componentes",Criar wireframes de baixa fidelidade no Figma,13013122361
+Criar protótipos de alta fidelidade no Figma,Design,Integrante 2,2026-11-09,2026-11-13,5,0,Planejada,Telas principais da aplicação,Definir Design System no Figma,13013122362
+Validar UI/UX com usuários,Design,Integrante 2,2026-11-16,2026-11-17,2,0,Planejada,Validação antes da implementação,Criar protótipos de alta fidelidade no Figma,13013122363
+Finalizar especificação técnica do design,Design,Integrante 1,2026-11-18,2026-11-19,2,0,Planejada,Marco de liberação para implementação,Definir arquitetura cliente-servidor,13013122364
+Configurar projetos Spring Boot e Angular,Implementação,Integrante 1,2026-11-20,2026-11-23,2,0,Planejada,Estrutura inicial e dependências,Finalizar especificação técnica do design,13013112078
+Implementar autenticação e autorização com Spring Security,Implementação,Integrante 1,2026-11-24,2026-11-27,4,0,Planejada,Controle de acesso por perfil,Configurar projetos Spring Boot e Angular,13013112079
+Implementar módulo de propriedades e talhões,Implementação,Integrante 1,2026-11-30,2026-12-04,5,0,Planejada,Backend e endpoints REST,Implementar autenticação e autorização com Spring Security,13013112081
+Implementar culturas e atividades agrícolas,Implementação,Integrante 1,2026-12-07,2026-12-11,5,0,Planejada,Regras centrais do domínio,Implementar módulo de propriedades e talhões,13013112082
+Implementar estoque e controle de insumos,Implementação,Integrante 1,2026-12-14,2026-12-18,5,0,Planejada,Movimentações e validação de saldo,Implementar culturas e atividades agrícolas,13013112083
+Implementar aplicações e ocorrências fitossanitárias,Implementação,Integrante 1,2026-12-21,2026-12-28,5,0,Planejada,Desconsiderando fins de semana,Implementar estoque e controle de insumos,13013112084
+Implementar colheitas e custos,Implementação,Integrante 1,2026-12-29,2027-01-05,5,0,Planejada,Produção e informações financeiras,Implementar aplicações e ocorrências fitossanitárias,13013112085
+Desenvolver componentes base do frontend Angular,Implementação,Integrante 2,2026-11-24,2026-11-30,5,2,Planejada,"Layout, navegação e componentes reutilizáveis",Configurar projetos Spring Boot e Angular,13013112086
+Desenvolver telas de propriedades e talhões,Implementação,Integrante 2,2026-12-01,2026-12-07,5,2,Planejada,Integração progressiva com API,Desenvolver componentes base do frontend Angular,13013112141
+"Desenvolver telas de atividades, estoque e aplicações",Implementação,Integrante 2,2026-12-08,2026-12-16,7,1,Planejada,Fluxos operacionais,Desenvolver telas de propriedades e talhões,13013112142
+"Desenvolver dashboard, colheitas, custos e relatórios",Implementação,Integrante 2,2026-12-17,2026-12-29,9,0,Planejada,Maior atividade da implementação frontend,Desenvolver telas de propriedades e talhões,13013112143
+Integrar frontend Angular com API REST,Implementação,Integrante 2,2027-01-06,2027-01-17,5,0,Planejada,Integração completa da aplicação,Implementar colheitas e custos,13013112144
+Executar testes unitários do backend,Testes,Integrante 1,2027-01-13,2027-01-18,4,1,Planejada,JUnit e Mockito,Integrar frontend Angular com API REST,13013112145
+Executar testes de integração,Testes,Integrante 1,2027-01-19,2027-01-22,4,0,Planejada,Validação entre serviços e persistência,Executar testes unitários do backend,13013112146
+Testar endpoints da API REST,Testes,Integrante 1,2027-01-25,2027-01-27,3,1,Planejada,Postman e códigos HTTP,Executar testes funcionais do frontend,13013112147
+Executar testes funcionais do frontend,Testes,Integrante 2,2027-01-19,2027-01-25,5,2,Planejada,Fluxos completos do usuário,Integrar frontend Angular com API REST,13013129730
+Corrigir falhas identificadas,Testes,Integrante 1 e 2,2027-01-28,2027-02-03,5,0,Planejada,Correções antes da homologação,Testar endpoints da API REST,13013129740
+Realizar testes de aceitação com usuários,Testes,Integrante 2,2027-02-04,2027-02-08,3,0,Planejada,Homologação com usuários,Corrigir falhas identificadas,13013129741
+Preparar ambiente de produção,Implantação,Integrante 1,2027-02-09,2027-02-11,3,0,Planejada,Servidor e variáveis de ambiente,Realizar testes de aceitação com usuários,13013129742
+Configurar containers Docker,Implantação,Integrante 1,2027-02-12,2027-02-16,3,0,Planejada,"Frontend, backend e PostgreSQL",Preparar ambiente de produção,13013129743
+Configurar banco de dados e backups,Implantação,Integrante 1,2027-02-17,2027-02-19,3,1,Planejada,Persistência e recuperação,Configurar containers Docker,13013129744
+Publicar backend e frontend,Implantação,Integrante 1,2027-02-22,2027-02-24,3,0,Planejada,Deploy da aplicação,Configurar banco de dados e backups,13013129745
+Executar testes em produção,Implantação,Integrante 1 e 2,2027-02-25,2027-02-26,2,0,Planejada,Smoke tests,Publicar backend e frontend,13013129746
+Cadastrar dados iniciais e treinar usuários,Implantação,Integrante 2,2027-03-01,2027-03-03,3,1,Planejada,Preparação para uso real,Executar testes em produção,13013129747
+Liberar implantação piloto,Implantação,Integrante 1 e 2,2027-03-04,2027-03-04,1,0,Planejada,Última atividade antes da manutenção,Cadastrar dados iniciais e treinar usuários,13013129748
+Monitorar aplicação em produção,Manutenção,Integrante 1,2027-03-05,2027-03-11,5,0,Planejada,Acompanhamento inicial,Liberar implantação piloto,13013129749
+Corrigir falhas pós-implantação,Manutenção,Integrante 1,2027-03-12,2027-03-18,5,2,Planejada,Manutenção corretiva,Monitorar aplicação em produção,13013129750
+Coletar feedback e planejar evoluções,Manutenção,Integrante 2,2027-03-12,2027-03-18,5,3,Planejada,Base para manutenção evolutiva,Monitorar aplicação em produção,13013129752

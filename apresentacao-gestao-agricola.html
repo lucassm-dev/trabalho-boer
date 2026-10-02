@@ -457,6 +457,100 @@
       .sim-controls { display: flex; gap: 8px; }
       .sim-controls .act-btn { flex: 1; white-space: nowrap; padding-left: 12px; padding-right: 12px; }
 
+      /* Anatomia de uma atividade */
+      .l-anat { grid-template-columns: .8fr 1.2fr; }
+      .defs { display: flex; flex-direction: column; border-top: 1px solid var(--ink); }
+      .def { display: grid; grid-template-columns: clamp(96px,8.6vw,130px) 1fr; gap: clamp(10px,1vw,16px); padding: clamp(10px,1.6vh,16px) 0; border-bottom: 1px solid var(--line); }
+      .def-term { font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(14px,min(1.15vw,1.9vh),18px); color: var(--ink); }
+      .def-txt { font-size: clamp(13px,min(1.02vw,1.7vh),16px); color: var(--ink-2); line-height: 1.45; }
+      .item-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(16px,2.4vh,26px) clamp(16px,1.8vw,28px); display: flex; flex-direction: column; gap: clamp(14px,2.2vh,22px); }
+      .item-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+      .item-name { font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(17px,min(1.6vw,2.7vh),26px); line-height: 1.2; letter-spacing: -.01em; }
+      .item-sub { font-size: clamp(12px,min(.95vw,1.6vh),15px); color: var(--muted); margin-top: 4px; }
+      .item-fields { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+      .fld { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; transition: border-color 320ms var(--ease), background 320ms var(--ease); }
+      .fld-l { font-family: "Outfit",sans-serif; font-size: clamp(9px,.72vw,11px); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+      .fld-v { font-family: "Outfit",sans-serif; font-weight: 500; font-size: clamp(13px,min(1.05vw,1.75vh),17px); color: var(--ink); font-variant-numeric: tabular-nums; margin-top: 2px; }
+      .l-anat[data-at="1"] .fld.is-dur, .l-anat[data-at="2"] .fld.is-dep, .l-anat[data-at="3"] .fld.is-slack { border-color: var(--accent); background: var(--accent-soft); }
+      .at-chart { --at-gap: clamp(10px,1.6vh,16px); display: flex; flex-direction: column; gap: var(--at-gap); padding-top: var(--at-gap); border-top: 1px solid var(--line); }
+      .at-row { display: grid; grid-template-columns: clamp(120px,11vw,170px) 1fr; gap: clamp(10px,1vw,16px); align-items: center; }
+      .at-name { font-size: clamp(11px,min(.9vw,1.5vh),14px); color: var(--ink-2); line-height: 1.25; }
+      .at-track { position: relative; display: grid; grid-template-columns: repeat(6,1fr); height: clamp(20px,2.9vh,28px); }
+      .at-days { height: auto; }
+      .at-days span { font-family: "Outfit",sans-serif; font-size: clamp(10px,.8vw,12px); font-weight: 500; letter-spacing: .06em; color: var(--muted); font-variant-numeric: tabular-nums; border-left: 1px solid var(--line); padding-left: 6px; }
+      .at-bar { margin: 0 2px; border-radius: 6px; background: var(--ink-2); }
+      .at-bar.me { background: var(--teal); }
+      .at-slack { margin: 0 2px; border-radius: 6px; border: 1.5px dashed var(--accent); background: var(--accent-soft); display: flex; align-items: center; justify-content: center; font-family: "Outfit",sans-serif; font-size: clamp(10px,.78vw,12px); font-weight: 600; color: var(--accent-ink); white-space: nowrap; }
+      .at-link { position: absolute; left: calc(100% / 6 - 16px); width: 14px; top: calc(-1 * var(--at-gap)); bottom: 50%; border-left: 1.5px solid var(--accent); border-bottom: 1.5px solid var(--accent); border-bottom-left-radius: 6px; }
+      .at-link::after { content: ""; position: absolute; right: -1px; bottom: -4.5px; width: 7px; height: 7px; border-top: 1.5px solid var(--accent); border-right: 1.5px solid var(--accent); transform: rotate(45deg); }
+      .slide .at-track [data-step] { transform: none; }
+
+      /* Zoom por fase */
+      .l-zoom { display: flex; flex-direction: column; gap: clamp(10px,1.7vh,18px); width: 100%; }
+      .zoom-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+      .zoom-tab {
+        appearance: none; cursor: pointer; display: inline-flex; align-items: baseline; gap: 8px;
+        font-family: "Outfit",sans-serif; font-size: clamp(12px,min(.95vw,1.6vh),15px); font-weight: 500;
+        padding: clamp(6px,1vh,9px) clamp(10px,1vw,14px); border-radius: 8px;
+        border: 1px solid var(--line); background: var(--surface); color: var(--ink-2);
+        transition: background 220ms var(--ease), border-color 220ms var(--ease), color 220ms var(--ease);
+      }
+      .zoom-tab small { font-size: .82em; font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; transition: color 220ms var(--ease); }
+      .zoom-tab:hover { border-color: var(--ink); }
+      .zoom-tab[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+      .zoom-tab[aria-pressed="true"] small { color: rgba(247,246,242,.7); }
+      .z-head, .z-row { display: grid; grid-template-columns: clamp(190px,25vw,340px) 1fr clamp(132px,11.5vw,164px); gap: clamp(10px,1vw,16px); align-items: center; }
+      .z-head { padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+      .z-head .label:last-child { text-align: right; white-space: nowrap; }
+      .z-row { padding: clamp(4px,.72vh,8px) 0; border-bottom: 1px solid var(--line); }
+      .z-row:last-child { border-bottom: none; }
+      .z-name { font-size: clamp(11px,min(.92vw,1.5vh),14px); color: var(--ink-2); line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .z-bar { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: var(--ink-2); transform-origin: left center; transform: scaleX(0); transition: transform 700ms var(--ease-out); }
+      .z-bar.r2 { background: var(--teal); }
+      .z-bar.r3 { background: var(--accent); }
+      .z-rows.in .z-bar { transform: scaleX(1); }
+      .z-info { display: flex; align-items: center; justify-content: flex-end; gap: 8px; font-family: "Outfit",sans-serif; font-size: clamp(11px,min(.9vw,1.5vh),14px); color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .g-swatch.r2 { background: var(--teal); }
+      .g-swatch.r3 { background: var(--accent); }
+
+      /* Duas frentes em paralelo */
+      .l-lanes { display: flex; flex-direction: column; gap: clamp(12px,2vh,22px); width: 100%; }
+      .lanes { --lane-gap: clamp(12px,2vh,20px); display: flex; flex-direction: column; gap: var(--lane-gap); }
+      .lane-head, .lane { display: grid; grid-template-columns: clamp(140px,13vw,190px) 1fr; gap: clamp(10px,1vw,16px); align-items: center; }
+      .lane-head { padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+      .lane-track { position: relative; height: clamp(30px,4.6vh,42px); }
+      .lane-bar {
+        position: absolute; top: 0; bottom: 0; border-radius: 6px; background: var(--ink-2); color: var(--bg);
+        display: flex; align-items: center; padding: 0 8px; overflow: hidden; white-space: nowrap;
+        font-family: "Outfit",sans-serif; font-size: clamp(10px,min(.8vw,1.4vh),12px); font-weight: 500;
+        box-shadow: inset -2px 0 0 var(--surface);
+      }
+      .lane.front .lane-bar { background: var(--teal); }
+      .lane.front .lane-bar.meet { background: var(--accent); color: var(--ink); font-weight: 600; }
+      .lane-join { position: absolute; top: calc(-1 * var(--lane-gap) - 2px); height: calc(var(--lane-gap) + 2px); border-left: 1.5px dashed var(--accent); }
+      .slide .lane-track [data-step] { transform: none; }
+      .facts.three { grid-template-columns: repeat(3,1fr); }
+      .fact-v small { font-size: clamp(12px,min(1.05vw,1.8vh),17px); font-weight: 400; letter-spacing: 0; color: var(--muted); margin-left: 8px; }
+
+      /* Folgas */
+      .l-crit { display: flex; flex-direction: column; gap: clamp(12px,2vh,22px); width: 100%; }
+      .c-row { display: grid; grid-template-columns: clamp(150px,15vw,230px) 1fr clamp(120px,11vw,160px); gap: clamp(12px,1.2vw,20px); align-items: center; padding: clamp(6px,1.05vh,11px) 0; border-bottom: 1px solid var(--line); }
+      .c-row:last-child { border-bottom: none; }
+      .c-dots { display: flex; flex-wrap: wrap; gap: clamp(4px,.5vw,7px); }
+      .c-dot { width: clamp(14px,1.55vw,22px); height: clamp(14px,1.55vw,22px); border-radius: 5px; background: var(--line-strong); outline: 2px solid transparent; outline-offset: 2px; transition: background 420ms var(--ease), outline-color 320ms var(--ease), transform 520ms var(--ease-out); transition-delay: calc(var(--i) * 14ms); }
+      .l-crit:not([data-at="0"]) .c-dot.free { background: var(--teal); }
+      .l-crit[data-at="2"] .c-dot.zero, .l-crit[data-at="3"] .c-dot.zero { background: var(--accent); }
+      .l-crit[data-at="3"] .c-dot.key { outline-color: var(--ink); transform: scale(1.18); transition-delay: 0ms; }
+      .c-count { font-family: "Outfit",sans-serif; font-size: clamp(12px,min(.95vw,1.6vh),15px); color: var(--ink-2); font-variant-numeric: tabular-nums; text-align: right; opacity: 0; transition: opacity 380ms var(--ease) 500ms; }
+      .l-crit[data-at="2"] .c-count, .l-crit[data-at="3"] .c-count { opacity: 1; }
+      .c-notes { display: grid; grid-template-columns: 1fr 1fr 1.25fr; gap: clamp(12px,1.4vw,22px); align-items: start; }
+      .c-note { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: baseline; font-size: clamp(13px,min(1.02vw,1.7vh),16px); color: var(--ink-2); line-height: 1.4; }
+      .c-note strong { font-family: "Outfit",sans-serif; font-weight: 500; color: var(--ink); }
+      .c-note .c-dot { transition: none; align-self: center; }
+      .c-note .c-dot.free { background: var(--teal); }
+      .c-note .c-dot.zero { background: var(--accent); }
+      .c-note .c-dot.key { background: var(--accent); outline-color: var(--ink); margin: 0 5px; }
+
       /* ---------- Revelação por etapas ---------- */
       .slide [data-step] { opacity: 0; transform: translateY(10px); transition: opacity 380ms var(--ease), transform 520ms var(--ease-out); }
       .slide [data-step].on { opacity: 1; transform: none; }
@@ -751,6 +845,12 @@
         .speaker-topic, .brand-sep, .brand-txt { display: none; }
         .g-head, .g-row { grid-template-columns: 110px 1fr; }
         .g-dates { display: none; }
+        .l-anat, .c-notes, .facts.three { grid-template-columns: 1fr; }
+        .z-head, .z-row { grid-template-columns: 130px 1fr; }
+        .z-info, .z-head .label:last-child { display: none; }
+        .c-row { grid-template-columns: 110px 1fr; }
+        .c-count { display: none; }
+        .lane-head, .lane { grid-template-columns: 96px 1fr; }
       }
       @media (max-width:720px) {
         html, body { overflow: auto; }
@@ -1247,7 +1347,7 @@
               <div class="t-name">Rhiady<br>Vieira</div>
               <div class="t-accent"></div>
             </div>
-            <p class="t-topics">Como planejamos · Cronograma · Quadro no Monday.com · Análise · Simulação de atraso · Aprendizados</p>
+            <p class="t-topics">Como planejamos · Cronograma · Quadro no Monday.com · Divisão do trabalho · Folgas · Análise · Simulação de atraso · Aprendizados</p>
           </div>
         </article>
 
@@ -1277,8 +1377,57 @@
           </div>
         </article>
 
-        <!-- 16 Cronograma -->
-        <article class="slide" data-slide="14" data-speaker="Rhiady Vieira" data-topic="Cronograma">
+        <!-- 16 Como ler uma atividade -->
+        <article class="slide" data-slide="14" data-speaker="Rhiady Vieira" data-topic="Como ler uma atividade">
+          <div class="slide-inner l-split l-anat">
+            <div class="split-content">
+              <h2 class="title-section">Como ler uma atividade do quadro</h2>
+              <p class="lead">Um exemplo real do cronograma, com os três campos que sustentam toda a análise.</p>
+              <div class="defs">
+                <div class="def" data-step="1"><span class="def-term">Duração</span><span class="def-txt">4 dias úteis, de 22/09 a 25/09, definidos pela complexidade da tarefa.</span></div>
+                <div class="def" data-step="2"><span class="def-term">Dependência</span><span class="def-txt">Só começa depois de <strong>Identificar stakeholders</strong>, em 21/09.</span></div>
+                <div class="def" data-step="3"><span class="def-term">Folga</span><span class="def-txt">Pode atrasar 1 dia sem empurrar nenhuma outra atividade.</span></div>
+              </div>
+            </div>
+            <div class="item-card">
+              <div class="item-head">
+                <div>
+                  <div class="item-name">Levantar necessidades dos usuários</div>
+                  <div class="item-sub">Levantamento de Requisitos · Rhiady Vieira</div>
+                </div>
+                <span class="pill ok">Planejada</span>
+              </div>
+              <div class="item-fields">
+                <div class="fld is-dur"><div class="fld-l">Início</div><div class="fld-v">22/09/2026</div></div>
+                <div class="fld is-dur"><div class="fld-l">Término</div><div class="fld-v">25/09/2026</div></div>
+                <div class="fld is-dur"><div class="fld-l">Duração</div><div class="fld-v">4 dias</div></div>
+                <div class="fld is-dep" style="grid-column: span 2"><div class="fld-l">Dependência</div><div class="fld-v">Identificar stakeholders do projeto</div></div>
+                <div class="fld is-slack"><div class="fld-l">Folga</div><div class="fld-v">1 dia</div></div>
+              </div>
+              <div class="at-chart">
+                <div class="at-row">
+                  <span class="label">Setembro</span>
+                  <div class="at-track at-days"><span>Seg 21</span><span>Ter 22</span><span>Qua 23</span><span>Qui 24</span><span>Sex 25</span><span>Seg 28</span></div>
+                </div>
+                <div class="at-row" data-step="2">
+                  <span class="at-name">Identificar stakeholders</span>
+                  <div class="at-track"><span class="at-bar" style="grid-column: 1"></span></div>
+                </div>
+                <div class="at-row">
+                  <span class="at-name">Levantar necessidades dos usuários</span>
+                  <div class="at-track">
+                    <span class="at-link" data-step="2" aria-hidden="true"></span>
+                    <span class="at-bar me" data-step="1" style="grid-column: 2 / span 4"></span>
+                    <span class="at-slack" data-step="3" style="grid-column: 6">folga</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 17 Cronograma -->
+        <article class="slide" data-slide="15" data-speaker="Rhiady Vieira" data-topic="Cronograma">
           <div class="slide-inner l-gantt">
             <h2 class="title-section">Cronograma: 21/09/2026 a 18/03/2027</h2>
             <div class="gantt" id="gantt">
@@ -1296,8 +1445,30 @@
           </div>
         </article>
 
-        <!-- 17 Quadro ao vivo -->
-        <article class="slide" data-slide="15" data-speaker="Rhiady Vieira" data-topic="Quadro no Monday.com">
+        <!-- 18 Zoom por fase -->
+        <article class="slide" data-slide="16" data-speaker="Rhiady Vieira" data-topic="Zoom por fase">
+          <div class="slide-inner l-zoom">
+            <h2 class="title-section">Dentro de cada fase: as 53 atividades</h2>
+            <div class="zoom-tabs" id="zoom-tabs" role="group" aria-label="Fase do projeto"></div>
+            <div class="sim-chart">
+              <div class="z-head">
+                <span class="label">Atividade</span>
+                <div class="g-months" id="z-months"></div>
+                <span class="label">Duração · folga</span>
+              </div>
+              <div class="z-rows" id="z-rows"></div>
+            </div>
+            <div class="g-legend">
+              <span class="g-key"><span class="g-swatch"></span>Lucas Mendes</span>
+              <span class="g-key"><span class="g-swatch r2"></span>Rhiady Vieira</span>
+              <span class="g-key"><span class="g-swatch r3"></span>Os dois juntos</span>
+              <span class="g-key">Semanas começam na segunda-feira</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 19 Quadro ao vivo -->
+        <article class="slide" data-slide="17" data-speaker="Rhiady Vieira" data-topic="Quadro no Monday.com">
           <div class="slide-inner l-split">
             <div class="split-content">
               <h2 class="title-section">O cronograma completo, ao vivo no Monday.com</h2>
@@ -1310,8 +1481,8 @@
             </div>
             <div class="link-panel">
               <span class="label">Link do quadro</span>
-              <span class="link-url">rhiadyv1s-team.monday.com/<wbr>boards/18430444123</span>
-              <a class="open-btn" href="https://rhiadyv1s-team.monday.com/boards/18430444123" target="_blank" rel="noopener">
+              <span class="link-url">lucassabadinimendess-team.monday.com/<wbr>boards/18433545202</span>
+              <a class="open-btn" href="https://lucassabadinimendess-team.monday.com/boards/18433545202" target="_blank" rel="noopener">
                 Abrir cronograma
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7M13 3L4 12"/></svg>
               </a>
@@ -1323,8 +1494,52 @@
           </div>
         </article>
 
-        <!-- 18 Análise -->
-        <article class="slide" data-slide="16" data-speaker="Rhiady Vieira" data-topic="Análise do cronograma">
+        <!-- 20 Duas frentes em paralelo -->
+        <article class="slide" data-slide="18" data-speaker="Rhiady Vieira" data-topic="Divisão do trabalho">
+          <div class="slide-inner l-lanes">
+            <h2 class="title-section">Duas frentes em paralelo na Implementação</h2>
+            <div class="sim-chart">
+              <div class="lanes">
+                <div class="lane-head">
+                  <span class="label">Quem</span>
+                  <div class="g-months" id="l-months"></div>
+                </div>
+                <div class="lane back">
+                  <div class="g-name">Lucas Mendes<small>Backend · Spring Boot</small></div>
+                  <div class="lane-track" id="lane-back"></div>
+                </div>
+                <div class="lane front" data-step="1">
+                  <div class="g-name">Rhiady Vieira<small>Frontend · Angular</small></div>
+                  <div class="lane-track" id="lane-front"></div>
+                </div>
+              </div>
+            </div>
+            <div class="g-legend" data-step="2">
+              <span class="g-key"><span class="g-swatch r3"></span>Integração frontend + API REST, de 06/01 a 12/01: só começa quando o backend termina, em 05/01</span>
+            </div>
+            <div class="facts three" data-step="3">
+              <div class="fact"><div class="fact-v">31<small>atividades · 97 dias</small></div><div class="fact-l">Lucas Mendes: arquitetura, backend e implantação</div></div>
+              <div class="fact"><div class="fact-v">19<small>atividades · 78 dias</small></div><div class="fact-l">Rhiady Vieira: Figma, frontend e testes com usuários</div></div>
+              <div class="fact"><div class="fact-v">3<small>atividades · 8 dias</small></div><div class="fact-l">Em dupla: correções, testes em produção e piloto</div></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 21 Folgas -->
+        <article class="slide" data-slide="19" data-speaker="Rhiady Vieira" data-topic="Folgas">
+          <div class="slide-inner l-crit">
+            <h2 class="title-section">Onde o cronograma não tem margem</h2>
+            <div class="gantt" id="crit"></div>
+            <div class="c-notes">
+              <div class="c-note" data-step="1"><span class="c-dot free"></span><span><strong>19 atividades com folga</strong>, de 1 a 3 dias: absorvem imprevistos.</span></div>
+              <div class="c-note" data-step="2"><span class="c-dot zero"></span><span><strong>34 atividades com folga zero</strong>: qualquer atraso passa adiante.</span></div>
+              <div class="c-note" data-step="3"><span class="c-dot key"></span><span><strong>Integrar frontend Angular com API REST</strong>: folga zero e ponto de encontro das duas frentes.</span></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 22 Análise -->
+        <article class="slide" data-slide="20" data-speaker="Rhiady Vieira" data-topic="Análise do cronograma">
           <div class="slide-inner l-table">
             <h2 class="title-section">O que a análise do cronograma mostrou</h2>
             <div class="table-wrap">
@@ -1346,8 +1561,8 @@
           </div>
         </article>
 
-        <!-- 19 Simulação de atraso -->
-        <article class="slide" data-slide="17" data-speaker="Rhiady Vieira" data-topic="Simulação de atraso">
+        <!-- 23 Simulação de atraso -->
+        <article class="slide" data-slide="21"data-speaker="Rhiady Vieira" data-topic="Simulação de atraso">
           <div class="slide-inner l-sim" id="sim">
             <h2 class="title-section">Simulação: +5 dias na integração frontend + API REST</h2>
             <div class="sim-scene">
@@ -1372,8 +1587,8 @@
           </div>
         </article>
 
-        <!-- 20 Mitigação e aprendizados -->
-        <article class="slide" data-slide="18" data-speaker="Rhiady Vieira" data-topic="Aprendizados">
+        <!-- 24 Mitigação e aprendizados -->
+        <article class="slide" data-slide="22"data-speaker="Rhiady Vieira" data-topic="Aprendizados">
           <div class="slide-inner l-compare">
             <h2 class="title-section">Como reduzir o impacto — e o que aprendemos</h2>
             <div class="grid-2">
@@ -1418,7 +1633,7 @@
               </div>
               <div class="meta-item">
                 <span class="label">Cronograma</span>
-                <a class="meta-value names" href="https://rhiadyv1s-team.monday.com/boards/18430444123" target="_blank" rel="noopener">Quadro no Monday.com</a>
+                <a class="meta-value names" href="https://lucassabadinimendess-team.monday.com/boards/18433545202" target="_blank" rel="noopener">Quadro no Monday.com</a>
               </div>
               <div class="meta-item">
                 <span class="label">Disciplina</span>
@@ -1558,6 +1773,144 @@
         place(false);
         play.addEventListener("click", function () { place(true); });
         reset.addEventListener("click", function () { place(false); });
+
+        /* ---------- Atividades do cronograma (quadro do Monday.com) ---------- */
+        /* [fase, responsável (1 Lucas · 2 Rhiady · 3 os dois), início, término, duração, folga, nome] */
+        function y(md) { return (+md.slice(0, 2) >= 9 ? "2026-" : "2027-") + md; }
+        var A = [
+          [0,1,"09-21","09-21",1,0,"Identificar stakeholders do projeto"],
+          [0,1,"09-22","09-24",3,0,"Realizar entrevistas com produtores"],
+          [0,2,"09-22","09-25",4,1,"Levantar necessidades dos usuários"],
+          [0,2,"09-28","09-30",3,1,"Analisar o processo atual (AS-IS)"],
+          [0,1,"10-01","10-02",2,0,"Definir o processo proposto (TO-BE)"],
+          [0,1,"10-05","10-07",3,0,"Identificar requisitos funcionais"],
+          [0,2,"10-05","10-06",2,1,"Identificar requisitos não funcionais"],
+          [0,1,"10-08","10-09",2,0,"Documentar e priorizar os requisitos"],
+          [0,1,"10-12","10-12",1,0,"Validar requisitos com os stakeholders"],
+          [1,1,"10-13","10-14",2,0,"Analisar e refinar os requisitos"],
+          [1,1,"10-15","10-16",2,0,"Identificar atores e casos de uso"],
+          [1,2,"10-15","10-19",3,1,"Modelar entidades do domínio"],
+          [1,1,"10-19","10-20",2,1,"Elaborar Diagrama de Casos de Uso UML"],
+          [1,2,"10-20","10-22",3,0,"Elaborar Diagrama de Classes UML"],
+          [1,1,"10-21","10-23",3,0,"Definir regras de negócio"],
+          [1,2,"10-23","10-26",2,1,"Elaborar Diagrama de Atividades UML"],
+          [1,1,"10-27","10-28",2,0,"Consolidar especificação do sistema"],
+          [2,1,"10-29","10-30",2,0,"Definir arquitetura cliente-servidor"],
+          [2,1,"11-02","11-03",2,0,"Definir arquitetura em camadas do backend"],
+          [2,1,"11-02","11-05",4,1,"Modelar banco de dados relacional"],
+          [2,2,"10-29","11-03",4,2,"Criar wireframes de baixa fidelidade no Figma"],
+          [2,2,"11-04","11-06",3,1,"Definir Design System no Figma"],
+          [2,2,"11-09","11-13",5,0,"Criar protótipos de alta fidelidade no Figma"],
+          [2,2,"11-16","11-17",2,0,"Validar UI/UX com usuários"],
+          [2,1,"11-18","11-19",2,0,"Finalizar especificação técnica do design"],
+          [3,1,"11-20","11-23",2,0,"Configurar projetos Spring Boot e Angular","Setup"],
+          [3,1,"11-24","11-27",4,0,"Implementar autenticação com Spring Security","Acesso"],
+          [3,1,"11-30","12-04",5,0,"Implementar módulo de propriedades e talhões","Propriedades"],
+          [3,1,"12-07","12-11",5,0,"Implementar culturas e atividades agrícolas","Culturas"],
+          [3,1,"12-14","12-18",5,0,"Implementar estoque e controle de insumos","Estoque"],
+          [3,1,"12-21","12-28",5,0,"Implementar aplicações e ocorrências fitossanitárias","Aplicações"],
+          [3,1,"12-29","01-05",5,0,"Implementar colheitas e custos","Colheitas e custos"],
+          [3,2,"11-24","11-30",5,2,"Desenvolver componentes base do frontend Angular","Componentes"],
+          [3,2,"12-01","12-07",5,2,"Desenvolver telas de propriedades e talhões","Telas: talhões"],
+          [3,2,"12-08","12-16",7,1,"Desenvolver telas de atividades, estoque e aplicações","Telas: operação"],
+          [3,2,"12-17","12-29",9,0,"Desenvolver dashboard, colheitas, custos e relatórios","Dashboard e relatórios"],
+          [3,2,"01-06","01-12",5,0,"Integrar frontend Angular com API REST","Integração"],
+          [4,1,"01-13","01-18",4,1,"Executar testes unitários do backend"],
+          [4,1,"01-19","01-22",4,0,"Executar testes de integração"],
+          [4,1,"01-25","01-27",3,1,"Testar endpoints da API REST"],
+          [4,2,"01-19","01-25",5,2,"Executar testes funcionais do frontend"],
+          [4,3,"01-28","02-03",5,0,"Corrigir falhas identificadas"],
+          [4,2,"02-04","02-08",3,0,"Realizar testes de aceitação com usuários"],
+          [5,1,"02-09","02-11",3,0,"Preparar ambiente de produção"],
+          [5,1,"02-12","02-16",3,0,"Configurar containers Docker"],
+          [5,1,"02-17","02-19",3,1,"Configurar banco de dados e backups"],
+          [5,1,"02-22","02-24",3,0,"Publicar backend e frontend"],
+          [5,3,"02-25","02-26",2,0,"Executar testes em produção"],
+          [5,2,"03-01","03-03",3,1,"Cadastrar dados iniciais e treinar usuários"],
+          [5,3,"03-04","03-04",1,0,"Liberar implantação piloto"],
+          [6,1,"03-05","03-11",5,0,"Monitorar aplicação em produção"],
+          [6,1,"03-12","03-18",5,2,"Corrigir falhas pós-implantação"],
+          [6,2,"03-12","03-18",5,3,"Coletar feedback e planejar evoluções"]
+        ].map(function (a) { return { ph: a[0], r: a[1], s: d(y(a[2])), e: d(y(a[3])) + DAY, dur: a[4], slack: a[5], n: a[6], short: a[7] }; });
+        var KEY = "Integrar frontend Angular com API REST";
+        function ofPhase(i) { return A.filter(function (a) { return a.ph === i; }); }
+
+        function weekTicks(el, start, end) {
+          el.innerHTML = "";
+          var ticks = [], t = start + ((8 - new Date(start).getUTCDay()) % 7) * DAY;
+          if (t > start) ticks.push(start);
+          for (; t < end; t += 7 * DAY) ticks.push(t);
+          ticks.forEach(function (k) {
+            var s = document.createElement("span");
+            s.className = "g-month"; s.textContent = fmt(k);
+            s.style.left = ((k - start) / (end - start) * 100) + "%";
+            el.appendChild(s);
+          });
+          return ticks;
+        }
+        function gridLines(ticks, start, span) {
+          return ticks.map(function (k) { return '<span class="g-grid" style="left:' + ((k - start) / span * 100) + '%"></span>'; }).join("");
+        }
+
+        /* ---------- Zoom por fase ---------- */
+        var zTabs = document.getElementById("zoom-tabs"), zRows = document.getElementById("z-rows"), zMonths = document.getElementById("z-months");
+        function showPhase(i) {
+          var list = ofPhase(i);
+          var s0 = Math.min.apply(null, list.map(function (a) { return a.s; }));
+          var s1 = Math.max.apply(null, list.map(function (a) { return a.e; }));
+          var span = s1 - s0, grid = gridLines(weekTicks(zMonths, s0, s1), s0, span);
+          zRows.classList.remove("in");
+          zRows.innerHTML = list.map(function (a, k) {
+            return '<div class="z-row">' +
+              '<div class="z-name">' + a.n + '</div>' +
+              '<div class="s-track">' + grid + '<span class="z-bar r' + a.r + '" style="left:' + ((a.s - s0) / span * 100) + '%;width:' + ((a.e - a.s) / span * 100) + '%;transition-delay:' + (k * 45) + 'ms"></span></div>' +
+              '<div class="z-info">' + a.dur + (a.dur === 1 ? " dia" : " dias") + '<span class="pill ' + (a.slack ? "ok" : "warn") + '">folga ' + a.slack + '</span></div>' +
+            '</div>';
+          }).join("");
+          void zRows.offsetWidth;
+          zRows.classList.add("in");
+          Array.prototype.forEach.call(zTabs.children, function (b, k) { b.setAttribute("aria-pressed", k === i); });
+        }
+        phases.forEach(function (p, i) {
+          var b = document.createElement("button");
+          b.type = "button"; b.className = "zoom-tab";
+          b.innerHTML = p.n + "<small>" + p.a + "</small>";
+          b.addEventListener("click", function () { showPhase(i); });
+          zTabs.appendChild(b);
+        });
+        // ?fase=n abre o zoom já na fase n (útil para revisar)
+        var fz = /[?&]fase=([0-6])/.exec(location.search);
+        showPhase(fz ? +fz[1] : 0);
+
+        /* ---------- Duas frentes em paralelo ---------- */
+        (function () {
+          var list = ofPhase(3), L0 = list[0].s, L1 = d("2027-01-13"), LS = L1 - L0;
+          var grid = gridLines(weekTicks(document.getElementById("l-months"), L0, L1), L0, LS);
+          function lane(id, r) {
+            document.getElementById(id).innerHTML = grid + list.filter(function (a) { return a.r === r; }).map(function (a) {
+              var meet = a.n === KEY, left = (a.s - L0) / LS * 100;
+              return (meet ? '<span class="lane-join" data-step="2" style="left:' + left + '%"></span>' : "") +
+                '<span class="lane-bar' + (meet ? " meet" : "") + '"' + (meet ? ' data-step="2"' : "") + ' title="' + a.n + '" style="left:' + left + '%;width:' + ((a.e - a.s) / LS * 100) + '%">' + a.short + '</span>';
+            }).join("");
+          }
+          lane("lane-back", 1);
+          lane("lane-front", 2);
+        })();
+
+        /* ---------- Folgas ---------- */
+        (function () {
+          var n = 0;
+          document.getElementById("crit").innerHTML = phases.map(function (p, i) {
+            var list = ofPhase(i), zero = list.filter(function (a) { return !a.slack; }).length;
+            return '<div class="c-row">' +
+              '<div class="g-name">' + p.n + '</div>' +
+              '<div class="c-dots">' + list.map(function (a) {
+                return '<span class="c-dot ' + (a.slack ? "free" : "zero") + (a.n === KEY ? " key" : "") + '" style="--i:' + (n++) + '" title="' + a.n + ' · folga ' + a.slack + '"></span>';
+              }).join("") + '</div>' +
+              '<div class="c-count">' + zero + ' de ' + list.length + ' sem folga</div>' +
+            '</div>';
+          }).join("");
+        })();
 
         /* ---------- SVG: utilitário ---------- */
         var SVGNS = "http://www.w3.org/2000/svg";
